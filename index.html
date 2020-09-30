@@ -6,9 +6,9 @@
     <title>Fancy Todo</title>
 </head>
 <body>
-    <button id="logout-btn">Logout</button>
     <nav>
-        <p>Fancy Todo</p>
+        <p id="fancy_todo">Fancy Todo</p>
+        <button id="create-todo">Create New Todo</button>
     </nav>
     <div id="login-page">
         <h1>Login</h1>
@@ -20,30 +20,37 @@
             <button id="submit-login">Login</button>
         </form>
     </div>
-    <div class="list-todo"><br><br>
+
+    <div class="main page"><br><br>
+        <button id="logout-btn">Logout</button>
+        <h1 id="header-todo-list">Your Todo list</h1>
         <table class="todo-container">
-            <tr>
-                <th>No</th>
-                <th>Todo</th>
-                <th>Description</th>
-                <th>Due Date</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>actions</th>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
         </table>
     </div>
-    <div id="create-page">
 
+    <div id="create-page">
+        <form>
+            <label for="title">Title</label><br>
+            <input type="text" id="title"><br><br>
+            <label for="description">Description</label><br>
+            <textarea id="description" cols="20" rows="10"></textarea><br><br>
+            <label>Status</label><br>
+            <select id="status">
+                <option value="uncompleted">uncompleted</option>
+                <option value="completed">compeleted</option>
+            </select><br><br>
+            <label for="due_date">Due Date</label><br>
+            <input type="date" id="due_date"><br><br>
+            <label for="location">Location</label><br>
+            <input type="text" id="location"><br><br>
+            <button id="submit_todo">Create</button>
+        </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         const baseServer = 'http://localhost:3000'
 
-        function fetchDelet (id) {
+        function fetchDelete (id) {
             $.ajax(`${baseServer}/todos/${id}`, {
                 method: `DELETE`,
                 headers: {
@@ -57,7 +64,20 @@
                 console.log(err)
             })
         }
-
+        function GetTodo (id) {
+            $.ajax(`${baseServer}/todos/${id}`, {
+                method: `GET`,
+                headers: {
+                    access_token : localStorage.getItem('access_token')
+                }
+            })
+            .done(result => {
+                fetchTodo()
+            })
+            .fail(err => {
+                console.log(err)
+            })
+        }
         function getDate (date) {
             let editDate = new Date (date)
             return new Intl.DateTimeFormat('en-GB').format(editDate)
@@ -72,6 +92,15 @@
             })
             .done(result => {
                 $('.todo-container').empty()
+                $('.todo-container').append(`<tr>
+                <th>No</th>
+                <th>Todo</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Actions</th>
+                </tr>`)
                 result.todos.forEach(todo => {
                     $('.todo-container').append(`<tr>
                         <td>${todo.id}</td>
@@ -82,7 +111,7 @@
                         <td>${todo.status}</td>
                         <td>
                             <button id="edit-todo"> edit </button>
-                            <button id="delete-todo" onclick="fetchDelet(${todo.id})"> delete </button>
+                            <button id="delete-todo" onclick="fetchDelete(${todo.id})"> delete </button>
                         </td>
                         </tr>`
                     )
@@ -93,24 +122,34 @@
             })
         }
 
-
         $(document).ready(function () {
             if (localStorage.getItem('access_token')){
                 fetchTodo()
-                $('#login-page').hide()
                 $('.todo-container').show()
+                $('#logout-btn').show()
+                $('#create-todo').show()
+                $('#header-todo-list').show()
+                $('#login-page').hide()
+                $('#create-page').hide()
+                $('#todo-header').show()
 
             }
             else{
                 $('#login-page').show()
+                $('#create-todo').hide()
                 $('.todo-container').hide()
+                $('#logout-btn').hide()
+                $('#create-page').hide()
+                $('#header-todo-list').hide()
+                $('#todo-header').hide()
+
             }
 
             $('#login-page').on('submit', function (event) {
                 event.preventDefault()
                 const email = $('#email').val()
                 const password = $('#password').val()
-                $('login-page').trigger('reset')
+                $('#login-page').trigger('reset')
                 $.ajax(`${baseServer}/login`, {
                     method: `POST`,
                     data: {
@@ -119,10 +158,13 @@
                     }
                 })
                 .done((result) => {
-                    console.log(result)
                     localStorage.setItem('access_token', result.accessToken)
                     $('.todo-container').show()
+                    $('#create-todo').show()
+                    $('#logout-btn').show()
+                    $('#header-todo-list').show()
                     $('#login-page').hide()
+                    $('#create-page').hide()
                     fetchTodo()
                 })
                 .fail((err) => {
@@ -136,9 +178,46 @@
             $('#logout-btn').on('click', () => {
                 $('#login-page').show()
                 $('.todo-container').hide()
+                $('#logout-btn').hide()
+                $('#create-page').hide()
+                $('#create-todo').hide()
+                $('#header-todo-list').hide()
                 localStorage.clear()
             })
 
+            $('#create-todo').on('click', () => {
+                $('#create-page').show()
+                $('#create-todo').hide()
+                $('#login-page').hide()
+                $('.todo-container').hide()
+                $('#logout-btn').hide()
+                $('#header-todo-list').hide()
+            })
+
+            $('#submit_todo').on('click',function (event) {
+                    event.preventDefault
+                    $('#create-page').trigger('reset')
+                    $.ajax(`${baseServer}/todos?lat=6.32275&lng=107.3376`, {
+                        method : 'POST',
+                        headers : {
+                            access_token : localStorage.getItem('access_token')
+                        },
+                        data : {
+                            title: $('#title').val(),
+                            description: $('#description').val(),
+                            status: $('#status').val(),
+                            due_date: $('#due_date').val(),
+                            location: $('#location').val()
+                        }
+                    })
+                    .done(result => {
+                        fetchTodo()
+                    })
+                    .fail(err => {
+                        console.log(err)
+                    })
+            })
+            
         })
     </script>
 </body>
