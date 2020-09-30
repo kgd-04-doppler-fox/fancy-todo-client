@@ -8,7 +8,7 @@
 </head>
 <body>
     <!-- Login Page -->
-    <div class="container" id="login-page">
+    <div class="container" id="login-form">
         <div class="row my-5">
             <form id="login" class="col-6 mx-auto text-center border py-5">
                 <h1>Login</h1>
@@ -27,11 +27,27 @@
 
     <div id="main-page">
         <!-- Navbar -->
-        <nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">My Todo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Add Todo</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-primary ml-auto mr-2" id="logout">Logout</button>
         </nav>
 
         <!-- Todo List -->
-        <div>    
+        <div class="container">
+            <div class="row my-5" id="list-todo">
+
+            </div>    
         </div>
 
         <!-- Add Todo -->
@@ -56,38 +72,6 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            const baseURL = 'http://localhost:3000'
-
-            if (localStorage.getItem('access_token')) {
-                $("#main-page").show()
-                $("#login-page").hide()
-            } else {
-                $("#main-page").hide()
-                $("#login-page").show()
-            }
-
-            $("#login").on("submit", function (e) {
-                e.preventDefault()
-                const email = $("#email").val()
-                const password = $("#password").val()
-                // request server
-                $.ajax(`${baseURL}/login`, {
-                    method: 'POST',
-                    data: {
-                        email,
-                        password
-                    }
-                })
-                .done((respone) => {
-                    localStorage.setItem("access_token", respone.access_token)
-                })
-                .fail((err) => {
-                    console.log(err)
-                })
-            })
-        })
-    </script>
+    <script src="/main.js"></script>
 </body>
 </html>
