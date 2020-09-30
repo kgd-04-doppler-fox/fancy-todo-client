@@ -9,9 +9,9 @@
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://bootswatch.com/4/united/bootstrap.min.css">
     <link rel="stylesheet" href="/asset/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js" 
+        integrity="sha512-53CQcu9ciJDlqhK7UD8dZZ+TF2PFGZrOngEYM/8qucuQba+a+BXOIRsp9PoMNJI3ZeLMVNIxIfZLbG/CdHI5PA==" 
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
@@ -30,12 +30,15 @@
                 <ul class="navbar-nav mr-auto">
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
+                    <!-- not yet -->
+                    <li class="nav-item active"> 
                         <a class="nav-link outside" href="#" data-toggle="modal" data-target="#modalSignup">Signup</a>
-                    </li>
+                    </li> 
+                    <!-- not yet -->
                     <li class="nav-item active">
                         <a class="nav-link outside" href="#" data-toggle="modal" data-target="#signinModal">Signin</a>
                     </li>
+                    <!-- not yet -->
                     <li class="nav-item active">
                         <a class="nav-link inside" href="#" style="display:none" id="createTodo" data-toggle="modal"
                             data-target="#createProjectModal">Create-Project</a>
@@ -56,7 +59,7 @@
 
 
     <!-- Login Form -->
-    <div class="container-form">
+    <div class="container outside">
         <div class="row my-5">
             <form id="login" class="col-6 mx-auto text-center border py-5">
                 <label for="email">Email</label><br>
@@ -70,10 +73,70 @@
     </div>
 
     <!-- Main Page -->
-    <div class="main-page">
-        <p>THIS IS MAIN</p>
+    <div class="container inside">
+        <div class="row">
+            <!-- LIST TODO -->
+            <div class="card text-white bg-primary mb-3 col-sm m-5" style="max-width: 20rem;">
+                <div class="card-header m-3">
+                    <h1>Todo's</h1>
+                </div>
+                <div id="todoList" class="m-3"></div>
+            </div>
+            <!-- DETAIL TODO -->
+            <div class="card text-white bg-primary mb-3 col-sm m-5" style="max-width: 20rem;">
+                <div class="card-header">
+                    <h1>Detail's</h1>
+                </div>
+                <div class="card-body" id="detailTodo"></div>
+            </div>
+        </div>
+    </div>
     </div>
 
+    <!-- Create Todo -->
+    <div class="modal fade" id="createTodoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-body" id="exampleModalLabel">Create Todo</h5>
+              <button type="button" class="close" id="closeCreate" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <form id="createForm">
+                    <div class="form-group">
+                      <label class="text-body">Title:</label>
+                      <input type="text" class="form-control" id="titleCreate" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                      <label class="text-body">Description:</label>
+                      <input type="text" class="form-control" id="descriptionCreate" placeholder="Description">
+                    </div>
+                    <div class="form-group">
+                      <label class="text-body">Status:</label>
+                      <select class="custom-select" id="statusCreate">
+                        <option value="false">Undone</option>
+                        <option value="true">Done</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="text-body">Due Date:</label><br>
+                      <input type="date" id="dateCreate" id="dateCreate">
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
@@ -85,29 +148,124 @@
 
     <script>
         const baseURL = `http://localhost:3000`
-        $(document).ready(function () {
 
+        function fetchTodos() {
+
+            $.ajax(`${baseURL}/todos`, {
+                method: 'GET',
+                headers: {
+                    access_token: localStorage.getItem("access_token")
+                }
+            })
+                .done(response => {
+                    $("#todoList").empty()
+                    response.todo.forEach(e => {
+                        $("#todoList").append(`
+                        <div class="card-header"><h4>${e.title}</h4></div>
+                        <div class="card-body text-center">
+                        <button type="button" class="btn btn-primary" onclick="setDetail('${e.id}', '${e.title}', '${e.description}', '${e.status}', '${e.due_date}')">Detail</button>
+                        </div>
+                        `)
+                    });
+                })
+                .fail(err => {
+                    console.log(err)
+                })
+        }
+
+        function setDetail(id, title, description, status, due_date) {
+            if (JSON.parse(status)) {
+                status = 'Done'
+            } else {
+                status = 'Undone'
+            }
+            due_date = moment(due_date).format("YYYY-MM-DD")
+            $('#detailTodo').html(`
+            <div class="card-body">
+                <p class="card-text">Title: ${title}</p>
+                <p class="card-text">Description: ${description}</p>
+                <p class="card-text">Status: ${status}</p>
+                <p class="card-text">Due Date: ${due_date}</p>
+                <button type="button" class="btn btn-primary" onclick="deleteTodo('${id}')">Delete</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">Update</button>
+            </div>
+            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title text-body" id="exampleModalLabel">Update</h5>
+                <button type="button" class="close" id="closeUpdate" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <div class="container">
+              <form id="updateForm">
+                  <div class="form-group">
+                    <label class="text-body">Title:</label>
+                    <input type="text" class="form-control" id="titleUpdate" placeholder="Title" value="${title}">
+                  </div>
+                  <div class="form-group">
+                    <label class="text-body">Description:</label>
+                    <input type="text" class="form-control" id="descriptionUpdate" placeholder="Description" value="${description}">
+                  </div>
+                  <div class="form-group">
+                    <label class="text-body">Status:</label>
+                    <select class="custom-select" id="statusUpdate">
+                      <option value="true">Done</option>
+                      <option value="false">Undone</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="text-body">Due Date:</label>
+                    <input type="date" class="form-control" id="dueDateUpdate" placeholder="Due_Date" value="${due_date}">
+                  </div>
+                  <div class="text-center">
+                    <button type="button" id="submitButton" class="btn btn-primary" onclick="updateTodo('${id}')">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+            </div>
+            </div>
+            `)
+        }
+
+        function deleteTodo(id) {
+            $.ajax(`${baseURL}/todos/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    access_token: localStorage.getItem("access_token")
+                }
+            })
+                .done(response => {
+                    fetchTodos()
+                })
+                .fail(err => {
+                    console.log(err)
+                })
+        }
+
+        $(document).ready(function () {
             if (localStorage.getItem(`access_token`)) {
                 $(".main-page").show()
-                $(".container-form").hide()
                 $('.outside').hide()
                 $('.inside').show()
-
+                fetchTodos()
             } else {
                 $(".main-page").hide()
-                $(".container-form").show()
                 $('.outside').show()
                 $('.inside').hide()
             }
-
-
-
 
             $("#login").on("submit", function (e) {
                 e.preventDefault()
                 const email = $("#email").val()
                 const password = $("#password").val()
-
                 //disini request server
                 $.ajax(`${baseURL}/users`, {
                     method: 'POST',
@@ -118,8 +276,9 @@
                 })
                     .done(response => {
                         localStorage.setItem("access_token", response.access_token)
-                        $(".main-page").show()
-                        $(".container-form").hide()
+                        fetchTodos()
+                        $(".inside").show()
+                        $(".outside").hide()
                     })
                     .fail(err => {
                         console.log(err)
@@ -129,9 +288,9 @@
                     })
             })
 
-            $("#logout").on("click", ()=>{
-                $(".main-page").hide()
-                $(".container-form").show()
+            $("#logout").on("click", function () {
+                $(".inside").hide()
+                $(".outside").show()
                 localStorage.clear()
                 // localStorage.removeItem("access_token")
             })
