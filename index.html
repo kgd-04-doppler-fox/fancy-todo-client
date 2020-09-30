@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>My Todo</title>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="container" id="login-page">
+        <div class="row my-5">
+            <form id="login" class="col-6 mx-auto text-center border py-5">
+                <h1>Login</h1>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email Address</label>
+                    <input id="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="form-gropu">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input id="password" type="password" class="form-control" id="exampleInputPassword1"><br><br>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="main-page">
+        <!-- Navbar -->
+        <nav>
+        </nav>
+
+        <!-- Todo List -->
+        <div>    
+        </div>
+
+        <!-- Add Todo -->
+        <div>
+            <form method="post">
+                <h1>Add Todo</h1>
+                <label>Title :</label>
+                <input type="text" id="title"><br><br>
+                <label>Description :</label>
+                <input type="text" id="description"><br><br>
+                <label>Status :</label>
+                <select name="status" id="status">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option value="On Going">On Going</option>
+                    <option value="Done">Done</option>
+                </select><br><br>
+                <label>Due Date :</label>
+                <input type="date" id="due_date"><br><br>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const baseURL = 'http://localhost:3000'
+
+            if (localStorage.getItem('access_token')) {
+                $("#main-page").show()
+                $("#login-page").hide()
+            } else {
+                $("#main-page").hide()
+                $("#login-page").show()
+            }
+
+            $("#login").on("submit", function (e) {
+                e.preventDefault()
+                const email = $("#email").val()
+                const password = $("#password").val()
+                // request server
+                $.ajax(`${baseURL}/login`, {
+                    method: 'POST',
+                    data: {
+                        email,
+                        password
+                    }
+                })
+                .done((respone) => {
+                    localStorage.setItem("access_token", respone.access_token)
+                })
+                .fail((err) => {
+                    console.log(err)
+                })
+            })
+        })
+    </script>
+</body>
+</html>
