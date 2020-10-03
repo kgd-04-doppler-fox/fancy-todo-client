@@ -44,6 +44,7 @@ function login() {
     .done(respone => {
       localStorage.setItem("access_token", respone.access_token)
       showMainPage()
+      fetchTodo()
     })
     .fail(err => {
       console.log(err)
@@ -88,10 +89,10 @@ function fetchTodo() {
   })
     .done(response => {
       console.log(response)
-      
+
       $("#listTodo").empty()
       response.forEach(data => {
-        if(!data.status){
+        if (!data.status) {
           let status = `<td>Not Done</td>`
         }
         $("#listTodo").append(`<tr>
@@ -101,7 +102,7 @@ function fetchTodo() {
             <td>${data.due_date}</td>
             <td>
               <button type="button" class="btn btn-info" onclick="deleteTodo(${data.id})">Delete</button>
-              <button type="button" class="btn btn-info" onclick="">Done</button>
+              <button type="button" class="btn btn-info" onclick="editTodo(${data.id}">Done</button>
             </td>
               
           </tr>`)
@@ -175,3 +176,40 @@ function randomCreate() {
     })
 }
 
+function onSignIn(googleUser) {
+  var id_token = googleUser.getAuthResponse().id_token;
+  console.log(id_token);
+  $.ajax({
+    url: "http://localhost:3000/googleSignIn",
+    method: "POST",
+    headers: {
+      id_token: id_token
+    }
+  }).done(response => {
+    localStorage.setItem("token", response.token)
+    console.log(response.token);
+    showMainPage()
+  }).catch(err => {
+    console.log(err, "error");
+  })
+}
+
+function editTodo(id) {
+  $.ajax({
+    url: `http://localhost:3000/todos/${id}`,
+    method: "PATCH",
+    headers: {
+      access_token: localStorage.getItem('access_token')
+    },
+    data:{
+      status:true
+    }
+  })
+    .done(response => {
+      console.log(response)
+      fetchTodo()
+    })
+    .catch(err => {
+      console.log(err, "error")
+    })
+}

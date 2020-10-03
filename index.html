@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta name="google-signin-client_id" content="602459969942-q4c7qca3tc90lg3f8r3p4m053vsm9t4s.apps.googleusercontent.com">
   <title>Document</title>
 </head>
 
@@ -26,6 +27,9 @@
         <label for="exampleInputPassword1">Password</label>
         <input type="password" class="form-control" id="password" placeholder="Password">
       </div>
+      <p>
+        <a href="" class="btn btn-block btn-danger"> <i class="fab fa-google"></i>   Login via Google</a>
+      </p>
       <button type="submit" class="btn btn-primary mx-auto" style="margin-top: 25px;">Login</button>
       <a href="#" id="reg-form" class="d-flex justify-content-center">register</a>
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
@@ -72,7 +76,7 @@
         <input type="date" class="form-control" id="due_date">
       </div>
       <button type="submit" class="btn btn-primary mx-auto" style="margin-top: 25px;" id="addTodo">Submit</button>
-      <button class="btn btn-primary mx-auto" style="margin-top: 25px;" id="randomTodo"> Bored? try random Todo</button>  
+      <button class="btn btn-primary mx-auto" style="margin-top: 25px;" id="randomTodo"> Bored? try random Todo</button>
     </form>
 
 

@@ -5,11 +5,7 @@ $(document).ready(function () {
   } else {
     showLogin()
   }
-
-  
-})
-
-$("#login").on("submit", function (event) {
+  $("#login").on("submit", function (event) {
     event.preventDefault()
     login()
   })
@@ -19,31 +15,33 @@ $("#login").on("submit", function (event) {
     register()
   })
 
-  $("#reg-form").on('click', () => {
-    showRegister()
-  })
+})
 
-  $("#login-form").on('click', () => {
-    showLogin()
-  })
+$("#reg-form").on('click', () => {
+  showRegister()
+})
 
-  $("#to-form").on('click', () => {
-    showForm()
-  })
+$("#login-form").on('click', () => {
+  showLogin()
+})
 
-  $("#logout").on('click', () => {
-    logout()
-  })
+$("#to-form").on('click', () => {
+  showForm()
+})
 
-  $("#addTodo").on('click', () => {
-    createTodo()
-    showMainPage()
-    fetchTodo()
-  })
+$("#logout").on('click', () => {
+  logout()
+})
 
-  $("#randomTodo").on('click', () => {
-    randomCreate()
-    showMainPage()
-    fetchTodo()
-  })
+$("#addTodo").on('click', () => {
+  createTodo()
+  showMainPage()
+  fetchTodo()
+})
+
+$("#randomTodo").on('click', () => {
+  randomCreate()
+  showMainPage()
+  fetchTodo()
+})
 
