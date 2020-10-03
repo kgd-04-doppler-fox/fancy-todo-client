@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta name="google-signin-client_id" content="602459969942-q4c7qca3tc90lg3f8r3p4m053vsm9t4s.apps.googleusercontent.com">
+  <title>Document</title>
+</head>
+
+<body>
+  <!--login-->
+  <div class="container-fluid mx-auto" style="width: 300px;" id="login">
+    <form>
+      <div>
+        <h1>login</h1>
+      </div><br>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+          else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password">
+      </div>
+      <p>
+        <a href="" class="btn btn-block btn-danger"> <i class="fab fa-google"></i>   Login via Google</a>
+      </p>
+      <button type="submit" class="btn btn-primary mx-auto" style="margin-top: 25px;">Login</button>
+      <a href="#" id="reg-form" class="d-flex justify-content-center">register</a>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </form>
+
+  </div>
+  <!--register-->
+  <div class="container-fluid mx-auto" style="width: 300px;" id="register">
+    <form>
+      <div>
+        <h1>Register</h1>
+      </div><br>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+          else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1"> Password </label>
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-primary mx-auto" style="margin-top: 25px;">Register</button>
+      <p class="text-center">Have an account? <a href="#login" id="login-form">Log In</a> </p>
+    </form>
+  </div>
+
+  <!--create todo-->
+  <div class="container-fluid mx-auto" style="width: 300px;" id="formTodo">
+    <form>
+      <div>
+        <h2> Add Todo </h2>
+      </div><br>
+      <div class="form-group">
+        <label for="title"> Title </label>
+        <input type="text" class="form-control" id="title" placeholder="e.g cooking">
+      </div>
+      <div class="form-group">
+        <label for="description"> Description </label>
+        <input type="text" class="form-control" id="description" placeholder="e.g make a mac n cheese">
+      </div>
+      <div class="form-group">
+        <label for="due_date">Due Date</label>
+        <input type="date" class="form-control" id="due_date">
+      </div>
+      <button type="submit" class="btn btn-primary mx-auto" style="margin-top: 25px;" id="addTodo">Submit</button>
+      <button class="btn btn-primary mx-auto" style="margin-top: 25px;" id="randomTodo"> Bored? try random Todo</button>
+    </form>
+
+
+  </div>
+
+  <!--main page-->
+  <div id="main-page">
+    <!--navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Todo</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="to-form">Add Todo</a>
+          </li>
+        </ul>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logout">logout</button>
+
+      </div>
+    </nav>
+    <!--Todo List-->
+    <div style="margin-top: 40px;">
+      <h1>Todo List</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Due_date</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody id="listTodo">
+
+        </tbody>
+
+
+      </table>
+    </div>
+
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+  <script src="/helpers.js"></script>
+  <script src="/main.js"></script>
+
+</body>
+
+</html>
