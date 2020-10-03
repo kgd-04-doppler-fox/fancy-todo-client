@@ -102,7 +102,7 @@ function fetchTodo() {
             <td>${data.due_date}</td>
             <td>
               <button type="button" class="btn btn-info" onclick="deleteTodo(${data.id})">Delete</button>
-              <button type="button" class="btn btn-info" onclick="editTodo(${data.id}">Done</button>
+              <button type="button" class="btn btn-info" onclick="editTodo(${data.id})">Done</button>
             </td>
               
           </tr>`)
