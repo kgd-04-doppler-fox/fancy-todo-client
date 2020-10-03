@@ -118,6 +118,9 @@
                             <form id="signinForm">
                                 <div class="form-group">
                                     <label for="emailSignin">Email address</label>
+                                    <div id="alertEmailSignIn">
+                                    
+                                    </div>
                                     <input type="email" class="form-control" id="emailSignin"
                                         aria-describedby="emailHelp" placeholder="Enter email">
                                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with
@@ -177,6 +180,7 @@
                         <form id="signupForm">
                             <div class="form-group">
                                 <label for="emailSignup">Email address</label>
+                                <!-- Alert Email Sign Up -->
                                 <div id="alertEmailSignUp">
                                     
                                 </div>
@@ -206,16 +210,16 @@
     <div class="container inside">
         <div class="row">
             <!-- LIST TODO -->
-            <div class="card text-white bg-primary mb-3 col-sm m-5" style="max-width: 20rem;">
+            <div class="card text-white bg-info mb-3 col-sm m-5" style="max-width: 20rem;">
                 <div class="card-header m-3">
-                    <h1>Todo's</h1>
+                    <h1 class="text-center">Todo's</h1>
                 </div>
                 <div id="todoList" class="m-3"></div>
             </div>
             <!-- DETAIL TODO -->
-            <div class="card text-white bg-primary mb-3 col-sm m-5" style="max-width: 20rem;">
+            <div class="card text-white bg-info mb-3 col-sm m-5" style="max-width: 20rem;">
                 <div class="card-header m-3">
-                    <h1>Detail's</h1>
+                    <h1 class="text-center">Detail's</h1>
                 </div>
                 <div class="card-body" id="detailTodo"></div>
             </div>

@@ -194,13 +194,13 @@ function feature(){
     })
     .done(response => {
         $(".boredResult").append(`
-        <div class="card-header"><h4>${response}</h4></div>`)
+        <div class="card-header"><p>${response}</p></div>`)
     })
     .fail(err => {
         console.log(err)
     })
     .always(_=>{
-        setTimeout(function(){ $(".boredResult").empty() }, 1500);
+        setTimeout(function(){ $(".boredResult").empty() }, 2000);
     })
 }
 
@@ -223,11 +223,14 @@ $(document).ready(function () {
                 localStorage.setItem("access_token", response.access_token)
                 check ()
                 fetchTodos()
-                $("#signinForm").trigger("reset")
                 $('#closeSignin').trigger('click')
             })
             .fail(err => {
-                console.log(err)
+                $("#alertEmailSignIn").append(`<p>${JSON.stringify(err.responseJSON.msg)}<p>`)
+                setTimeout(function(){ $("#alertEmailSignIn").empty() }, 2000);                
+            })
+            .always(_=>{
+                $("#signinForm").trigger("reset")
             })
     })
 
@@ -255,11 +258,15 @@ $(document).ready(function () {
             }
         })
             .done(response => {
-                $("#signupForm").trigger("reset")
                 $("#closeSignup").trigger("click")
             })
             .fail(err => {
-                $("#alertEmailSignUp").append(`<p>${JSON.stringify(err.responseJSON.msg)}</p>`)
+                $("#alertEmailSignUp").append(`<p>${JSON.stringify(err.responseJSON.msg)}<p>`)
+                setTimeout(function(){ $("#alertEmailSignUp").empty() }, 2000);
+            })
+            .always(_=>{
+                $("#signupForm").trigger("reset")
+                setTimeout(function(){ $(".signupForm").empty() }, 1500);
             })
     })
 
