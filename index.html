@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="602459969942-e8uikbks5f702fej52hel9utgr4ph5uk.apps.googleusercontent.com"> 
+                                                                    <!-- isinya adalah CLIENT_ID -->
+    <title>FANCY TODO!</title>
+</head>
+<body>
+    
+    <h1> Let's Make Some To-do List!</h1>
+    <br>
+
+    <!-- LOGIN -->
+    <section>
+        <div id="login-form"> 
+            <!-- untuk nampilin yang .show() yang ada di .done -->
+            <form id="login"> 
+                <!-- yang buat submit -->
+                <h2>Login</h2>
+                <div>
+                    <label for="email">E-mail</label><br>
+                    <input type="email" name="email" id="email"><br><br>
+                </div>
+                <div>
+                    <label for="password">Password</label><br>
+                    <input type="password" name="password" id="password">
+                </div>
+                    <br> <br>
+                    <button type="submit"> Login </button><br><br>
+                    <p>Don't have an Account? <button id="register-login">Register Now!</button></p>
+                    <br>
+                    <b>Or, Use another account: </b><br><br>
+    
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- REGISTER -->
+    <section id="register-form">
+        <div>
+            <form id="register">
+                <h2>Register</h2>
+                <div>
+                    <label for="email">E-mail</label><br>
+                    <input type="email" name="email" id="register-email"><br><br>
+                </div>
+                <div>
+                    <label for="password">Password</label><br>
+                    <input type="password" name="password" id="register-password">
+                </div>
+                <br> <br>
+                <button type="submit"> Register </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- HOMEPAGE AFTERLOGIN -->
+    <section>
+        <div id="homepage">
+            <button id="logout"> Logout </button>
+            <form>
+                <h2>Fancy Todo Homepage</h2>
+                <div>
+                    <label for="create-todo">Create New Todo</label><br>
+                    <button id="create-todo">Create Now!</button><br><br>
+                </div>
+                <div>
+                    <label for="showAll-todo">Show All Todo</label><br>
+                    <button id="showAll-todo">My Todo</button><br><br>
+                </div>
+                <div>
+                    <label for="find-todo">Find Todo by Id</label><br>
+                    <button id="find-todo">Find My Todo</button><br><br>
+                </div>
+                <div>
+                    <label for="update-todo">Update New Todo</label><br>
+                    <button id="update-todo">Update My Todo</button><br><br>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- CREATE TODO -->
+    <section>
+        <div id="create-todo-form">
+            <form id="submit-new-todo">
+                <h2>Create Todo</h2>
+                <h3>Fill all the data to create To-do</h3>
+                <!-- title, description, status,snack, due_date -->
+                <div>
+                    <label for="title">To-do Title</label><br>
+                    <input type="text" id="title" ><br><br>
+                </div>
+                <div>
+                    <label for="description">Description</label><br>
+                    <input type="text" id="description" ><br><br>
+                </div>
+                <div>
+                    <label for="status">Status</label><br>
+                    <select name="status" id="status">
+                        <option value="incompleted" name="status" selected>incompleted</option>
+                    </select>
+                    <br><br>
+                </div>
+                <div>
+                    <label for="snack">Type of Snack</label><br>
+                    <input type="text" id="snack"><br>
+                    <small>*) Insert snack/food name, e.g pizza, ayam, sate, etc</small>
+                    <br><br>
+                </div>
+                <div>
+                    <label for="due_date">Due Date</label><br>
+                    <input type="date" id="due_date"><br>
+                    <small>*) Minimum date to be inputted is today's date</small>
+                </div>
+                <br>
+                <button type="submit">Create My Todo!</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Show All Todo -->
+    <section>
+        <div id="ShowAllTodo">
+            <h2>All My Todo</h2>
+            <table border="1">
+                <thead>
+                    <td> Id </td>
+                    <td> Title </td>
+                    <td> Description </td>
+                    <td> Status </td>
+                    <td> Snack </td>
+                    <td> Due Date </td>
+                </thead>
+                    <div id="list-todo">
+                    </div>
+                </table>
+                <input type="number" id="delete-data" name="delete-data" >
+                <button type="submit"> Delete </button>
+        </div>
+    </section>
+
+    <!-- Find Todo by Id -->
+    <section>
+        <div id="findTodo">
+            <form id="find-todo-by-id">
+                <h2>Find your To-do</h2>
+                <label for="id">To-do Id</label><br>
+                <input type="number" name="findId"><br><br>
+                <button type="submit">Find</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Update My To-do -->
+    <section>
+        <div id="update-todo-form">
+            <form id="update-my-todo">
+                <h2>Update Todo</h2>
+                <!-- title, description, status,snack, due_date -->
+                <div>
+                    <label for="title">To-do Title</label><br>
+                    <input type="text" name="title"><br><br>
+                </div>
+                <div>
+                    <label for="description">Description</label><br>
+                    <input type="text" name="description" ><br><br>
+                </div>
+                <div>
+                    <label for="status">Status</label><br>
+                    <input type="radio" name="description" value="completed">Completed
+                    <br>
+                    <input type="radio" name="description" value="incompleted">Incompleted
+                    <br><br>
+                </div>
+                <div>
+                    <label for="snack">Type of Snack</label><br>
+                    <input type="text" name="snack"><br>
+                    <small>*) Insert snack/food name, e.g pizza, ayam, sate, etc</small>
+                    <br><br>
+                </div>
+                <div>
+                    <label for="due_date">Due Date</label><br>
+                    <input type="date" name="due_date" ><br>
+                    <small>*) Minimum date to be inputted is today's date</small>
+                </div>
+                <br>
+                <button type="submit">Create My Todo!</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="./main.js"></script>
+    <script src="./helpers.js"></script>
+
+</body>
+</html>
