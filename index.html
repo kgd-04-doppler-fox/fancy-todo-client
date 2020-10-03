@@ -3,31 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta name="google-signin-client_id" content="291169373975-hc200ufe2roaupun474h6ch4boklel5r.apps.googleusercontent.com">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="style.css">
+
     <title>My Todo</title>
 </head>
 <body>
     <!-- Login Page -->
-    <div class="container" id="login-form">
-        <div class="row my-5">
-            <form id="login" class="col-6 mx-auto text-center border py-5">
-                <h1>Login</h1>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email Address</label>
-                    <input id="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="form-gropu">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input id="password" type="password" class="form-control" id="exampleInputPassword1"><br><br>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
+    <section id="login-form" style="min-height: 100vh; background-color: #1F7FE3;">
+        <div class="container-fluid">
+          <div class="card bg-light">
+            <article class="card-body mx-auto" style="width: 50%;">
+              <h4 class="card-title mt-3 mb-4 text-center">Login</h4>
 
-    <div id="main-page">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <form id="login">
+                    <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input id="email" name="email_log" class="form-control" placeholder="Email address" type="email">
+                    </div>
+        
+                    <div class="form-group input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input id="password" class="form-control" name="pass_log" placeholder="Enter password" type="password">
+                    </div>
+        
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Login </button>
+                    </div>
+
+                    <div>
+                        <b>Or, use another account:</b>
+                        <div class="g-signin2 mt-2" data-onsuccess="onSignIn"></div>
+                    </div>
+
+                    <div class="d-flex justify-content-center links mt-3">
+                        Don't have an account? <a href="#" id="signup"> Sign Up</a>
+                    </div>
+                </form>
+            </article>
+          </div>
+        </div>
+    </section>
+
+    <!-- Register -->
+    <section id="register-form" style="min-height: 100vh; background-color: #272727;">
+        <div class="container-fluid">
+          <div class="card bg-light">
+            <article class="card-body mx-auto" style="width: 50%;">
+              <h3 class="card-title mt-3 text-center">Movie and Chill</h3>
+              <h4 class="card-title mt-3 text-center">Create Account</h4>
+              <p class="text-center">Get started with your free account</p>
+              <p>
+                <a href="" class="btn btn-block btn-danger" role="button"> <i class="fab fa-google"></i>   Sign up via
+                  Google</a>
+              </p>
+              <p class="divider-text">
+                <span class="bg-light">OR</span>
+              </p>
+              <form id="register">
+                <div class="form-group input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                  </div>
+                  <input id="email-reg" name="email_reg" class="form-control" placeholder="Email address" type="email">
+                </div>
+    
+    
+                <div class="form-group input-group mb-5">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                  </div>
+                  <input id="password-reg" name="pass_reg" class="form-control" placeholder="Create password" type="password">
+                </div>
+    
+    
+                <div class="form-group mt-4">
+                  <button type="submit" class="btn btn-primary btn-block"> Create Account </button>
+                </div>
+                <p class="text-center">Have an account? <a href="#login" id="login-form">Log In</a> </p>
+              </form>
+            </article>
+          </div>
+        </div>
+    </section>
+
+    <!-- Navbar -->
+    <section id="main-page">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="#">My Todo</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
@@ -37,10 +108,10 @@
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Add Todo</a>
+                    <a class="nav-link" href="#" id="add-todo">Add Todo</a>
                 </li>
             </ul>
-            <button class="btn btn-outline-primary ml-auto mr-2" id="logout">Logout</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" id="logout">Logout</button>
         </nav>
 
         <!-- Todo List -->
@@ -49,29 +120,97 @@
 
             </div>    
         </div>
+        </section>
 
-        <!-- Add Todo -->
-        <div>
-            <form method="post">
-                <h1>Add Todo</h1>
-                <label>Title :</label>
-                <input type="text" id="title"><br><br>
-                <label>Description :</label>
-                <input type="text" id="description"><br><br>
-                <label>Status :</label>
-                <select name="status" id="status">
-                    <option value="" selected disabled>-- Select --</option>
-                    <option value="On Going">On Going</option>
-                    <option value="Done">Done</option>
-                </select><br><br>
-                <label>Due Date :</label>
-                <input type="date" id="due_date"><br><br>
-                <button type="submit">Add</button>
-            </form>
+    <!-- Add Todo -->
+    <section id="add-form" style="min-height: 100vh; background-color: #1F7FE3;">
+        <div class="container-fluid">
+            <div class="card bg-light">
+            <article class="card-body mx-auto" style="width: 50%;">
+                <h4 class="card-title mt-3 mb-4 text-center">Add Todo</h4>
+
+                <form id="form-add">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="title" placeholder="e.g Become a Good Software Developer">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" id="description" placeholder="e.g Graduated from Hacktiv8">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="status" class="form-control">
+                            <option selected>Choose...</option>
+                            <option value="Not Yet">Not Yet</option>
+                            <option value="On Going">On Going</option>
+                            <option value="Done">Done</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Due Date</label>
+                        <input type="date" class="form-control" id="due_date">
+                    </div>
+        
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Add </button>
+                    </div>
+
+                </form>
+            </article>
+            </div>
         </div>
-    </div>
+    </section>
 
+    <!-- Edit Todo -->
+    <section id="edit-form" style="min-height: 100vh; background-color: #1F7FE3;">
+        <div class="container-fluid">
+            <div class="card bg-light">
+            <article class="card-body mx-auto" style="width: 50%;">
+                <h4 class="card-title mt-3 mb-4 text-center">Edit Todo</h4>
+
+                <form id="form-add">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="edittitle" placeholder="e.g Become a Good Software Developer">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" id="editdescription" placeholder="e.g Graduated from Hacktiv8">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="status" class="form-control">
+                            <option selected>Choose...</option>
+                            <option value="Not Yet">Not Yet</option>
+                            <option value="On Going">On Going</option>
+                            <option value="Done">Done</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Due Date</label>
+                        <input type="date" class="form-control" id="due_date">
+                    </div>
+        
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Edit </button>
+                    </div>
+
+                </form>
+            </article>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/helpers.js"></script>
     <script src="/main.js"></script>
 </body>
 </html>
