@@ -67,3 +67,12 @@ span.buttonText {
   width: 100%;
   object-fit: cover;
 }
+#alertDate {
+  color: red;
+  background: yellow;
+}
+
+#alertEmailSignUp {
+  color: red;
+  background: yellow;
+}

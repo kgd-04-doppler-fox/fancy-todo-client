@@ -259,7 +259,7 @@ $(document).ready(function () {
                 $("#closeSignup").trigger("click")
             })
             .fail(err => {
-                console.log(err)
+                $("#alertEmailSignUp").append(`<p>${JSON.stringify(err.responseJSON.msg)}</p>`)
             })
     })
 
@@ -286,10 +286,9 @@ $(document).ready(function () {
             .done(response => {
                 fetchTodos()
                 $("#closeCreate").trigger("click")
-                
             })
             .fail(err => {
-                console.log(err)
+                $("#alertDate").append(`<p>${JSON.stringify(err.responseJSON.msg)}</p>`)
             })
             .always(_=>{
                 $("#createForm").trigger("reset")
