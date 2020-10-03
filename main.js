@@ -14,34 +14,34 @@ $(document).ready(function () {
     event.preventDefault()
     register()
   })
+  $("#reg-form").on('click', () => {
+    showRegister()
+  })
 
+  $("#login-form").on('click', () => {
+    showLogin()
+  })
+
+  $("#to-form").on('click', () => {
+    showForm()
+  })
+
+  $("#logout").on('click', () => {
+    logout()
+  })
+
+  $("#addTodo").on('click', () => {
+    createTodo()
+    showMainPage()
+    fetchTodo()
+  })
+
+  $("#randomTodo").on('click', () => {
+    randomCreate()
+    showMainPage()
+    fetchTodo()
+  })
 })
 
-$("#reg-form").on('click', () => {
-  showRegister()
-})
 
-$("#login-form").on('click', () => {
-  showLogin()
-})
-
-$("#to-form").on('click', () => {
-  showForm()
-})
-
-$("#logout").on('click', () => {
-  logout()
-})
-
-$("#addTodo").on('click', () => {
-  createTodo()
-  showMainPage()
-  fetchTodo()
-})
-
-$("#randomTodo").on('click', () => {
-  randomCreate()
-  showMainPage()
-  fetchTodo()
-})
 
