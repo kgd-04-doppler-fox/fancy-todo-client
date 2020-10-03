@@ -4,10 +4,25 @@
 
 /* Login */
 
+.register_login {
+    background-color: grey;
+    border: none;
+    color: white;
+    position: relative;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    left: 1100px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    height: 70px;
+}
+
 .form {
     border: 2px solid grey;
     border-radius: 20px;
-    height: 325px;
+    height: 370px;
     width: 350px;
     position: relative;
     left: 475px;
@@ -30,9 +45,55 @@
 }
 .form-button {
     border-radius: 5px;
-    margin-left: 125px;
+    margin-left: 140px;
     margin-top: 20px;
-    font-size: 25px;
+    font-size: 20px;
+}
+.register-button {
+    font-size: 20px;
+    margin-left: 145px;
+    color: blue;
+}
+.g-signin2{
+    position: relative;
+    left: 120px;
+    top: 20px;
+}
+small {
+    margin-left: 117px;
+}
+
+/* Register */
+
+.reg-form {
+    border: 2px solid grey;
+    border-radius: 20px;
+    height: 300px;
+    width: 350px;
+    position: relative;
+    left: 475px;
+    background-color: lightgray;
+    top: 100px;
+}
+
+.reg-form-h1 {
+    position: relative;
+    left: 120px;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(80, 78, 78);
+}
+
+.reg-form-input {
+    border-radius: 5px;
+    margin-left: 40px;
+    font-size: 20px;
+}
+.reg-form-button {
+    border-radius: 5px;
+    margin-left: 145px;
+    margin-top: 20px;
+    font-size: 15px;
 }
 
 /* My ToDo */
@@ -105,7 +166,7 @@ th {
     position: relative;
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
-    left: 1000px;
+    left: 888.5px;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -117,16 +178,16 @@ th {
     border: 2px solid grey;
     border-radius: 20px;
     height: 450px;
-    width: 500px;
+    width: 450px;
     position: relative;
-    left: 400px;
+    left: 450px;
     background-color: lightgray;
     top: 50px;
 }
 
 .form-h1-create {
     position: relative;
-    left: 130px;
+    left: 110px;
     font-size: 40px;
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(80, 78, 78);
@@ -134,7 +195,7 @@ th {
 
 .form-input-create {
     border-radius: 5px;
-    margin-left: 110px;
+    margin-left: 90px;
     font-size: 20px;
 }
 
