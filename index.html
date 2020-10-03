@@ -7,13 +7,26 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <title>Fancy Todo</title>
 </head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: thistle;">
+    <a class="navbar-brand" href="#">
+        <img src="https://www.vhv.rs/dpng/d/138-1380931_checklist-icon-triangle-hd-png-download.png" width="30" height="30" alt="">
+      </a>
+    <a class="navbar-brand" href="#">Fancy Todo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#" id="create-todo">Create Todo <span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+      <a class="nav-link" href="#" id="signup" style="margin-left: 85%;">Signup</a>
+      <a class="nav-link" href="#" id="logout-btn" style="margin-left: 80%;">Logout</a>
+    </div>
+  </nav>
 <body style="background-image: url('./asset/login.jpg');" id="body">
-    <nav>
-        <a href="#" id="fancy-home">Fancy Todo</a>
-        <a href="#" id="create-todo">Create Todo</a>
-        <a href="#" id="logout-btn" style="margin-left: 80%;">Logout</a>
-        <a href="#" id="signup" style="margin-left: 85%;">Signup</a>
-    </nav>
 
     <div id="login-page" style="width: 250px; margin-left: 200px; margin-top: 80px;">
         <h1>Login</h1>
@@ -48,6 +61,7 @@
             <label for="location" class="mt-3">Location</label><br>
             <input type="text" id="location" class="form-control form-control-sm">
             <button id="submit_todo" class="btn btn-primary mt-3">Create</button>
+            <button id="cancel_todo" class="btn btn-primary mt-3">Cancel</button>
         </form>
     </div>
 

@@ -34,18 +34,36 @@ function changeStatus(id) {
 }
 
 function fetchDelete (id) {
-    $.ajax(`${baseServer}/todos/${id}`, {
-        method: `DELETE`,
-        headers: {
-            access_token : localStorage.getItem('access_token')
-        }
-    })
-    .done(result => {
+    let confirmation = confirm('Are you sure to delete this data?')
+
+    if(confirmation){
+        $.ajax(`${baseServer}/todos/${id}`, {
+            method: `DELETE`,
+            headers: {
+                access_token : localStorage.getItem('access_token')
+            }
+        })
+        .done(result => {
+            fetchTodo()
+        })
+        .fail(err => {
+            console.log(err)
+        })
+    }
+    else {
         fetchTodo()
-    })
-    .fail(err => {
-        console.log(err)
-    })
+        $('#todo-table').show()
+        $('#logout-btn').show()
+        $('#create-todo').show()
+        $('#todo-header').show()
+        $('#header-todo-list').show()
+        $('#login-page').hide()
+        $('#create-page').hide()
+        $('#edit-page').hide()
+        $('body').css({"background-image" : "url('./asset/background.jpg')"})
+        $('#registration-page').hide()
+    }
+    
 }
 
 function editTodo (id) {
@@ -272,7 +290,7 @@ $(document).ready(function () {
         $('#create-todo').hide()
         $('#header-todo-list').hide()
         $('#edit-page').hide()
-        $('#login').show()
+        $('#signup').show()
         $('body').css({"background-image" : "url('./asset/login.jpg')"})
         localStorage.clear()
     })
@@ -321,6 +339,19 @@ $(document).ready(function () {
             })
     })
     
+    $('#cancel_todo').on('click', () => {
+        fetchTodo()
+        $('#todo-table').show()
+        $('#logout-btn').show()
+        $('#create-todo').show()
+        $('#todo-header').show()
+        $('#header-todo-list').show()
+        $('#login-page').hide()
+        $('#create-page').hide()
+        $('#edit-page').hide()
+        $('#registration-page').hide()
+    })
+
     $('#edit-submit').on('click', (event) => {
         console.log(localStorage.getItem)
         const id = localStorage.getItem('current_id')
@@ -361,7 +392,7 @@ $(document).ready(function () {
         $('#registration-page').hide()
     })
 
-    $('#submit-register').on('submit', (event)=> {
+    $('#submit-register').on('click', (event)=> {
         event.preventDefault()
         const fullName = $("#reg-name").val()
         const email = $("#reg-email").val()
