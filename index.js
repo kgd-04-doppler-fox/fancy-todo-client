@@ -285,3 +285,19 @@ $(document).ready(function () {
       <h5>Let's get productive today!</h5>`)
     })
 })
+
+function onSignIn(googleUser) {
+  var id_token = googleUser.getAuthResponse().id_token
+  $.ajax({
+    url: "http://localhost:3000/googleSignIn",
+    method: "POST",
+    headers: {
+      id_token
+    }
+  }).done(response => {
+    localStorage.setItem("token", response.token)
+    showMainPage()
+  }).catch(err => {
+    console.log(err)
+  })
+}
