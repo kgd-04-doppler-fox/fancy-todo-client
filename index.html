@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="878537891560-p61p1ef06m8u0slvapa7757e8qdpf8tb.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <title>Fancy Todo</title>
+</head>
+<body>
+    <!-- login -->
+    <div class="login">
+        <div class="container">
+            <br>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-2">
+                </div>
+                <div class="col-md-auto">
+                    <h2 class="h2">Login</h2>
+                    <form id="login">
+                        <div class="form-group">
+                          <label for="email-login">Email address</label>
+                          <input type="email" class="form-control" id="email-login" aria-describedby="emailHelp">
+                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input type="password" class="form-control" id="password-login">
+                        </div>
+                        <button type="submit" class="btn btn-primary" >Login</button>
+                      </form><br>
+                      <div class="row row-cols-2">
+                        <button class="btn btn-light" id="button-register">Register</button>
+                      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                      </div>   
+                </div>
+                <div class="col col-lg-2">
+                </div>
+              </div>
+        </div>
+    </div>
+    <!-- register -->
+    <div class="register">
+        <div class="container">
+            <br><br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-2">
+                </div>
+                <div class="col-md-auto">
+                    <h2 class="h2">Register</h2>
+                    <form id="register">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control" id="email-register" aria-describedby="emailHelp">
+                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input type="password" class="form-control" id="password-register">
+                        </div>
+                        <button type="submit" class="btn btn-primary" >Register</button>
+                      </form><br>
+                </div>
+                <div class="col col-lg-2">
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <div class="main-page">
+        <div class="container">
+
+            <div class="navbar">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button id="mytodos" class="btn btn-link">My Todos</button> 
+                    <button id="btn-add-todo" class="btn btn-link">Add Todo</button>  <button id="btn-trending" class="btn btn-link">Trending Movie</button>  <button id="logout" class="btn btn-link">Logout</button> <p id="error" style="color: crimson;"></p>
+                  </nav>
+            </div>
+
+            <div class="contents">
+                <h2 class="h2">Your Todos</h2>
+                <ul class="list-group">
+                </ul>
+            </div>
+
+            <div class="trending">
+                <h2 class="h2"> Trending Movie</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Release Date</th>
+                            <th scope="col">Rating</th>
+                            <th scope="col">Overview</th>
+                          </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+    
+            <div id="add-todo"> 
+                <form id="form-add-todo">
+                    <div class="form-group row">
+                      <label for="title" class="col-sm-2 col-form-label">Title</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="title">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" rows="3"></textarea>
+                      </div>
+                    <fieldset class="form-group">
+                      <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Status</legend>
+                        <div class="col-sm-10">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="false" value="false" checked>
+                            <label class="form-check-label" for="false">
+                              Not Done
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <div class="form-group row">
+                        <label for="due_date" class="col-sm-2 col-form-label">Due Date</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="due_date">
+                          </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary">Add Todo</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+    
+            <div id="edit-todo">
+                <h2 class="h2">Edit Todo</h2>
+                <form id="form-edit-todo">
+                    <div class="form-group row">
+                      <label for="title-edit" class="col-sm-2 col-form-label">Title</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="title-edit">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description-edit" rows="3"></textarea>
+                      </div>
+                    <fieldset class="form-group">
+                      <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Status</legend>
+                        <div class="col-sm-10">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="false-edit" value="false">
+                            <label class="form-check-label" for="false-edit">
+                              Not Done
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <div class="form-group row">
+                        <label for="due_date" class="col-sm-2 col-form-label">Due Date</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="due_date-edit">
+                          </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary">Edit Todo</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+    </div>
+    
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+
+const baseUrl = 'http://localhost:3000'
+
+let updateId 
+let access_token = localStorage.getItem("access_token")
+
+function todoDone(id) {
+    
+    $.ajax({
+        url: `${baseUrl}/todos/${id}`,
+        method: "PATCH",
+        headers:{access_token},
+        data: {status: true}
+    })
+    .done(res => {
+        fetchTodos()
+        $("#trending").hide()
+        $(".login").hide()
+        $(".register").hide()
+        $("#add-todo").hide()
+        $("#edit-todo").hide()
+        $(".main-page").show()
+    })
+    .fail(err => {
+        console.log(err.responseJSON.msg)
+    })
+
+}
+
+function onSignIn(googleUser) {
+    var id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        url: baseUrl+'/googleSignIn',
+        method: "POST",
+        headers: {id_token}
+    })
+    .done(res => {
+        localStorage.setItem("access_token", res.access_token)
+        fetchTodos()
+        $(".login").hide()
+        $(".trending").hide()
+        $(".register").hide()
+        $("#add-todo").hide()
+        $("#edit-todo").hide()
+        $(".main-page").show()
+    })
+    .fail(err => {
+        console.log(err.responseJSON.msg)
+    })
+
+  }
+
+
+function generateDate(date){
+
+    let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+function findTodoById(id){
+    $.ajax(`${baseUrl}/todos/${id}`, {
+        method: "GET",
+        headers: {access_token}
+    })
+    .done(response => {
+        updateId = id
+        $("#title-edit").val(response.title)
+        $("#description-edit").val(response.description)
+        if (response.status == 'true'){
+            $("#true-edit").prop("checked", true);
+        }
+        else{
+            $("#false-edit").prop("checked", true);
+        }
+        $("#due_date-edit").val(generateDate(response.due_date))
+
+        $("#add-todo").hide()
+        $(".login").hide()
+        $(".register").hide()
+        $(".contents").hide()
+        $("#edit-todo").show()
+        
+    })
+    .fail(err => {
+        console.log(err.responseJSON.msg)
+    })
+    
+}
+
+function deleteTodo(id){
+    $.ajax(`${baseUrl}/todos/${id}`, {
+        method: "DELETE",
+        headers: {access_token}
+    })
+
+    .done(response =>{
+        fetchTodos()
+    })
+    .fail(err => {
+        console.log(err.responseJSON.msg)
+    })
+}
+
+function fetchTrending(){
+    $("tbody").empty()
+    $.ajax({
+        url: baseUrl+'/trending',
+        method: "GET"
+    })
+    .done(res => {
+        for(let i = 0; i < res.length; i++){
+            let title = res[i].title || res[i].name
+            let release_date = res[i].release_date || res[i].first_air_date
+            $("tbody").append(`
+                <tr> 
+                    <th scope="row" >${i + 1}</th>
+                    <td>${title}</td>
+                    <td>${release_date}</td>
+                    <td>${res[i].vote_average}</td>
+                    <td>${res[i].overview}</td>
+                </tr>
+            `)
+        }
+    })
+    .fail(err =>{
+        console.log(err.responseJSON.msg)
+    })
+}
+
+function fetchTodos(){
+    $("ul").empty()
+    $.ajax(baseUrl+"/todos", {
+        method: "GET",
+        headers: {access_token}
+    })
+    .done(function(response){
+        for(let i = 0; i < response.todos.length; i++){
+            if (response.todos[i].status === false){
+                $("ul").append(`
+                <li class="list-group-item list-group-item-primary">${response.todos[i].title} <button onclick="findTodoById(${response.todos[i].id})"  class="btn btn-outline-info">Details</button> <button onclick="deleteTodo(${response.todos[i].id})" class="btn btn-outline-danger" >Delete</button> <button onclick="todoDone(${response.todos[i].id})" class="btn btn-outline-success" >Done</button></li>
+                `)
+                
+            }else if(response.todos[i].status === true){
+                $("ul").append(`
+                <li class="list-group-item list-group-item-primary">${response.todos[i].title} <button onclick="deleteTodo(${response.todos[i].id})" class="btn btn-outline-danger">Delete</button> DONE </li>
+                `)
+                
+            }      
+        }
+    })
+    .fail(function(err){
+        console.log(err.responseJSON.msg)
+    })
+    
+}
+
+$(document).ready(function (){
+    if (access_token){
+        fetchTodos()
+        $(".login").hide()
+        $(".register").hide()
+        $("#add-todo").hide()
+        $("#edit-todo").hide()
+        $(".trending").hide()
+        $(".main-page").show()
+    }
+    else{
+        $(".login").show()
+        $(".register").hide()
+        $(".main-page").hide()
+    }
+
+    $("#login").on("submit", function(event){
+        event.preventDefault()
+        const email = $("#email-login").val()
+        const password = $("#password-login").val()
+
+        $.ajax(baseUrl+'/login', {
+            method: 'POST',
+            data: {
+                email,
+                password
+            }
+        })
+        .done(function(response){
+            localStorage.setItem("access_token", response.access_token)
+            fetchTodos()
+            $(".login").hide()
+            $(".register").hide()
+            $("#add-todo").hide()
+            $("#edit-todo").hide()
+            $(".main-page").show()
+            $("#trending").hide()
+        })
+        .fail(function(err){
+            console.log(err.responseJSON.msg)
+        })
+        .always(()=>{
+            $("#login").trigger("reset")     
+        })
+    })
+
+
+    $("#logout").on("click", function(){
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+        localStorage.clear()
+        $(".login").show()
+        $(".register").hide()
+        $(".main-page").hide()
+    })
+
+    $("#button-register").on("click", function(){
+        $(".login").hide()
+        $(".register").show()
+        $(".main-page").hide()
+    })
+
+    $("#register").on("submit", function(event){
+        event.preventDefault()
+        const email = $("#email-register").val()
+        const password = $("#password-register").val()
+
+        $.ajax(baseUrl+"/register", {
+            method: "POST",
+            data: {
+                email,
+                password
+            }
+        })
+        .done(function(response){
+            $(".login").show()
+            $(".register").hide()
+            $(".main-page").hide()
+        })
+        .fail(function(err){
+            console.log(err.responseJSON.msg)
+        })
+        .always(()=>{
+            $("#register").trigger("reset")
+        })
+    })
+
+    $("#btn-add-todo").on("click", function(){  
+        $("#add-todo").show()
+        $(".login").hide()
+        $(".register").hide()
+        $(".contents").hide()
+        $("#edit-todo").hide()
+        $(".trending").hide()
+    })
+
+    $("#form-add-todo").on("submit", function(event){
+        event.preventDefault()
+
+        const title = $("#title").val()
+        const description = $("#description").val()
+        const status = $("#false").val() || $("#true").val()
+        const due_date = $("#due_date").val()
+
+        $.ajax(baseUrl+"/todos", {
+            method: "POST", 
+            data: {
+                title, description, status, due_date
+            },
+            headers: {access_token}
+        })
+        .done(response => {
+            fetchTodos()
+            $("#add-todo").hide()
+            $(".login").hide()
+            $(".register").hide()
+            $(".contents").show()
+            $("#edit-todo").hide()
+            $(".trending").hide()
+
+        })
+        .fail(err => {
+            showError(err.responseJSON.msg)
+        })
+        .always(()=>{
+            $("#form-add-todo").trigger("reset")
+        })
+    })
+
+    $("#form-edit-todo").on("submit", function(event){
+        event.preventDefault()
+        const title = $("#title-edit").val()
+        const description = $("#description-edit").val()
+        const status = $("#false-edit").val() || $("#true-edit").val()
+        const due_date = $("#due_date-edit").val()
+        const id = updateId
+        $.ajax(`${baseUrl}/todos/${id}`, {
+            method: "PUT", 
+            data: {
+                title, description, status, due_date
+            },
+            headers: {access_token}
+        })
+        .done(response => {
+            fetchTodos()
+            $("#add-todo").hide()
+            $(".login").hide()
+            $(".register").hide()
+            $(".contents").show()
+            $("#edit-todo").hide()
+            $(".trending").hide()
+        })
+        .fail(err => {
+            console.log(err.responseJSON.msg)
+        })
+    })
+
+    $("#mytodos").on("click", function(){
+            fetchTodos()
+            $("#add-todo").hide()
+            $(".login").hide()
+            $(".register").hide()
+            $(".contents").show()
+            $("#edit-todo").hide()
+            $(".trending").hide()
+    })
+
+    $('#btn-trending').on("click", function(){
+        fetchTrending()
+        $("#add-todo").hide()
+        $(".login").hide()
+        $(".register").hide()
+        $(".contents").hide()
+        $("#edit-todo").hide()
+        $(".trending").show()
+    })
+})
+    </script>
+</body>
+</html>
