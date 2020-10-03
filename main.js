@@ -6,7 +6,10 @@ $(document).ready(function () {
     showLogin()
   }
 
-  $("#login").on("submit", function (event) {
+  
+})
+
+$("#login").on("submit", function (event) {
     event.preventDefault()
     login()
   })
@@ -43,7 +46,4 @@ $(document).ready(function () {
     showMainPage()
     fetchTodo()
   })
-})
-
-
 
