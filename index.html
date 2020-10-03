@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="367296612879-7o8ptj2vsr6s9rhpa24d51c9afopgp7f.apps.googleusercontent.com">
+    <link rel="stylesheet" href="./asset/style.css">
+    <title>ToDo</title>
+</head>
+<body class="body">
+    <div id="login-form">
+        <nav class="nav">
+            <button class="register_login" id="to-register">Register</button>
+        </nav>
+        <form class="form" id="login">
+            <h1 class="form-h1">Login</h1>
+            <label class="form-input">Email :</label>
+            <br>
+            <input class="form-input" type="email" id="email">
+            <br>
+            <br>
+            <label class="form-input">Password :</label>
+            <br>
+            <input class="form-input" type="password" id="password">
+            <br>
+            <input class="form-button" type="Submit">
+            <br>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </form>
+    </div>
+    <div id="register-form">
+        <nav class="nav">
+            <button class="register_login" id="to-login">Login</button>
+        </nav>
+        <form class="reg-form" id="register">
+            <h1 class="reg-form-h1">Register</h1>
+            <label class="reg-form-input">Email :</label>
+            <br>
+            <input class="reg-form-input" type="email" placeholder="your email" id="email-reg">
+            <br>
+            <br>
+            <label class="reg-form-input">Password :</label>
+            <br>
+            <input class="reg-form-input" type="password" placeholder="your password" id="password-reg">
+            <br>
+            <input class="reg-form-button" type="Submit">
+        </form>
+    </div>
+    <div id="main-page">
+        <nav class="nav">
+            <button class="button">My ToDo</button>
+            <button class="button" id="add-todo">Add ToDo</button>
+            <button class="logout" id="logout">Logout</button>
+        </nav>
+        <br>
+        <h1>List ToDo</h1>
+        <br>
+        <table id="todo-list"></table>
+    </div>
+    <div id="create-page">
+        <nav class="nav">
+            <button class="button" id="my-todo2">My ToDo</button>
+            <button class="logout2" id="logout2">Logout</button>
+        </nav>
+        <br>
+        <form class="form-create" id="add">
+            <h1 class="form-h1-create">Create ToDo</h1><br>
+            <label class="form-input-create">Title :</label>
+            <br>
+            <input class="form-input-create" type="text" id="title">
+            <br>
+            <br>
+            <label class="form-input-create">Description :</label>
+            <br>
+            <input class="form-input-create" type="text" id="description">
+            <br>
+            <br>
+            <label class="form-input-create">Due Date :</label>
+            <br>
+            <input class="form-input-create" type="date" id="due_date">
+            <br>
+            <input class="form-button-create" type="Submit">
+        </form>
+    </div>
+    <div id="update-page">
+        <nav class="nav">
+            <button class="button" id="my-todo3">My ToDo</button>
+            <button class="logout2" id="logout3">Logout</button>
+        </nav>
+        <br>
+        <form class="form-create" id="update">
+            <h1 class="form-h1-create">Update ToDo</h1><br>
+            <label class="form-input-create">Title :</label>
+            <br>
+            <input class="form-input-create" type="text" id="title2">
+            <br>
+            <br>
+            <label class="form-input-create">Description :</label>
+            <br>
+            <input class="form-input-create" type="text" id="description2">
+            <br>
+            <br>
+            <label class="form-input-create">Due Date :</label>
+            <br>
+            <input class="form-input-create" type="date" id="due_date2">
+            <br>
+            <input class="form-button-create" type="Submit">
+        </form>
+    </div>
+    <br>
+    <br>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        const baseURL = "http://localhost:4000"
+        let getId
+
+        function onSignIn(googleUser) {
+            let id_token = googleUser.getAuthResponse().id_token;
+            $.ajax({
+                url: `${baseURL}/googleSignIn`,
+                method: 'POST',
+                headers: {
+                    id_token
+                }
+            })
+            .done (res => {
+                localStorage.setItem("access_token",res.token)
+                $("#main-page").show()
+                $("#login-form").hide()
+                fetchToDo()
+            })
+            .fail (err => {
+                console.log(err)
+            })
+        }
+
+        function doneToDo(id){
+            const status = true
+            $.ajax(`${baseURL}/todos/${id}`,{
+                method: 'PATCH',
+                data: {
+                    status
+                },
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .done (res => {
+                fetchToDo()
+            })
+            .fail (err => {
+                console.log(err)
+            })
+        }
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        function editTodo(id) {
+            $("#main-page").hide()
+            $("#update-page").show()
+            getId = id
+            $.ajax(`${baseURL}/todos/${id}`, {
+                method: 'GET',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .done(result => {
+                localStorage.setItem("update_key","update")
+                $("#title2").val(result.title)
+                $("#description2").val(result.description)
+                $("#due_date2").val(formatDate(result.due_date))
+            })
+            .fail(err => {
+                console.log(err)
+            })
+        }
+
+        function deleteToDo(id){
+            $.ajax(`${baseURL}/todos/${id}`,{
+                method: 'DELETE',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .done (res => {
+                fetchToDo()
+            })
+            .fail (err => {
+                console.log(err)
+            })
+        }
+        function fetchToDo(){
+            $.ajax(`${baseURL}/todos`,{
+                method: 'GET',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+            .done (res => {
+                $("#todo-list").empty()
+                $("#todo-list").append(`<tr>
+                <th>To Do</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Action</th>
+                </tr>`)
+                res.forEach((el) => {
+                    let isDone
+                    if (el.status === false){
+                        isDone = "Not Done"
+                    }else{
+                        isDone = "Done"
+                    }
+                    $("#todo-list").append(`<tr>
+                    <td>${el.title}</td>
+                    <td>${el.description}</td>
+                    <td>${formatDate(el.due_date)}</td>
+                    <td>${isDone}</td>
+                    <td><button onclick="doneToDo(${el.id})" >Done</button> | <button onclick="deleteToDo(${el.id})" >Delete</button> | <button onclick="editTodo(${el.id})" >Edit</button></td>
+                    </tr>`)
+                })
+            })
+            .fail (err => {
+                console.log(err)
+            })
+        }
+
+        $(document).ready(function(){
+            let accessToken = localStorage.getItem('access_token')
+            let registerKey = localStorage.getItem('register_key')
+            let createKey = localStorage.getItem('create_key')
+            let updateKey = localStorage.getItem('update_key')
+
+            if(!accessToken && registerKey && !createKey && !updateKey){
+                $("#login-form").hide()
+                $("#register-form").show()
+                $("#main-page").hide()
+                $("#create-page").hide()
+                $("#update-page").hide()
+            }else if(accessToken && !registerKey && !createKey && !updateKey){
+                fetchToDo()
+                $("#login-form").hide()
+                $("#register-form").hide()
+                $("#main-page").show()
+                $("#create-page").hide()
+                $("#update-page").hide()
+            }else if(accessToken && !registerKey && createKey && !updateKey){
+                $("#login-form").hide()
+                $("#register-form").hide()
+                $("#main-page").hide()
+                $("#create-page").show()
+                $("#update-page").hide()
+            }else if(accessToken && !registerKey && !createKey && updateKey){
+                $("#login-form").hide()
+                $("#register-form").hide()
+                $("#main-page").hide()
+                $("#create-page").hide()
+                $("#update-page").show()
+            }else{
+                $("#login-form").show()
+                $("#register-form").hide()
+                $("#main-page").hide()
+                $("#create-page").hide()
+                $("#update-page").hide()
+            }
+
+            $("#login").on("submit",function(e){
+                e.preventDefault()
+                const email = $("#email").val()
+                const password = $("#password").val()
+                $.ajax(`${baseURL}/login`,{
+                    method: 'POST',
+                    data: {
+                        email,
+                        password
+                    }
+                })
+                .done(function(res) {
+                    localStorage.setItem("access_token",res.access_token)
+                    $("#main-page").show()
+                    $("#login-form").hide()
+                    fetchToDo()
+                })
+                .fail(function(err){
+                    console.log(err)
+                })
+            })
+            $("#to-register").on("click",function (){
+                localStorage.setItem("register_key","register")
+                $("#register").show()
+                $("#login-form").hide()
+            })
+            $("#register").on("submit",function(e){
+                e.preventDefault()
+                const email = $("#email-reg").val()
+                const password = $("#password-reg").val()
+                $.ajax(`${baseURL}/register`,{
+                    method: 'POST',
+                    data: {
+                        email,
+                        password
+                    }
+                })
+                .done(function(res) {
+                    localStorage.removeItem("register_key")
+                    $("#login-form").show()
+                    $("register-form").hide()
+                })
+                .fail(function(err){
+                    console.log(err)
+                })
+            })
+            $("#to-login").on("click",function (){
+                $("#login-form").show()
+                $("register-form").hide()
+                localStorage.removeItem("register_key")
+            })
+            $("#logout").on("click",function (){
+                $("#login-form").show()
+                $("#main-page").hide()
+                $("#create-page").hide()
+                $("#update-page").hide()
+                localStorage.clear()
+                let auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                });
+            })
+            $("#logout2").on("click",function (){
+                $("#login-form").show()
+                $("#create-page").hide()
+                localStorage.clear()
+                let auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                });
+            })
+            $("#logout3").on("click",function (){
+                $("#login-form").show()
+                $("#update-page").hide()
+                localStorage.clear()
+                let auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                });
+            })
+            $("#my-todo2").on("click",function (){
+                $("#main-page").show()
+                $("#create-page").hide()
+                localStorage.removeItem("create_key")
+                fetchToDo()
+            })
+            $("#my-todo3").on("click",function (){
+                $("#main-page").show()
+                $("#update-page").hide()
+                localStorage.removeItem("update_key")
+                fetchToDo()
+            })
+            $("#add-todo").on("click",function (){
+                $("#create-page").show()
+                $("#login-form").hide()
+                $("#main-page").hide()
+                $("#update-page").hide()
+                localStorage.setItem("create_key","create")
+            })
+            $("#add").on("submit",function(e){
+                e.preventDefault()
+                const title = $("#title").val()
+                const description = $("#description").val()
+                const status = false
+                const due_date = $("#due_date").val()
+                $.ajax(`${baseURL}/todos`,{
+                    method: 'POST',
+                    data: {
+                        title,
+                        description,
+                        status,
+                        due_date
+                    },
+                    headers: {
+                        access_token: localStorage.getItem('access_token')
+                    }
+                })
+                .done (res => {
+                    $("#login-form").hide()
+                    $("#main-page").show()
+                    $("#create-page").hide()
+                    $("#update-page").hide()
+                    localStorage.removeItem("create_key")
+                    fetchToDo()
+                })
+                .fail (err => {
+                    console.log(err)
+                })
+            })
+            $("#update").on("submit",function(e){
+                e.preventDefault()
+                $.ajax(`${baseURL}/todos/${getId}`,{
+                    method: 'PUT',
+                    data: {
+                        title: $('#title2').val(),
+                        description: $('#description2').val(),
+                        due_date: $('#due_date2').val()
+                    },
+                    headers: {
+                        access_token: localStorage.getItem('access_token')
+                    }
+                })
+                .done (res => {
+                    $("#main-page").show()
+                    $("#update-page").hide()
+                    localStorage.removeItem("update_key")
+                    fetchToDo()
+                })
+                .fail (err => {
+                    console.log(err)
+                })
+            })
+        });
+    </script>
+</body>
+</html>
