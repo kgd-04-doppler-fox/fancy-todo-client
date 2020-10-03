@@ -29,7 +29,7 @@ $(document).ready(function () {
         addTodo()
     })
 
-    $("#edit-todo").on('click', () => {
-        showEditForm()
+    $("#form-edit").on('click', () => {
+        editTodoPost()
     })
 })

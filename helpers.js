@@ -32,19 +32,12 @@ function showAddForm () {
     $("#edit-form").hide()
 }
 
-function showEditForm (input) {
+function showEditForm () {
     $("#edit-form").show()
     $("#add-form").hide()
     $("#main-page").hide()
     $("#register-form").hide()
     $("#login-form").hide()
-
-    console.log(input)
-    $.each(input, function ( key, value ) {
-        $("#edittitle").val(input.todo.title); 
-        $("#editdescription").val(input.todo.description);
-    });
-
 }
 
 function login () {
@@ -133,6 +126,7 @@ function deleteTodo (id) {
 }
 
 function editTodo (id) {
+    showEditForm()
     $.ajax({
         url: `${baseURL}/todos/${id}`,
         method: 'GET',
@@ -140,8 +134,42 @@ function editTodo (id) {
             access_token: localStorage.getItem('access_token')
         }
     })
+    .done(data => {
+        localStorage.setItem("current_id", data.todo.id)
+        $("#edit-title").val(data.todo.title)
+        $("#edit-description").val(data.todo.description)
+        $("#edit-status").val(data.todo.status)
+        $("#edit-due_date").val(data.todo.due_date);  
+        
+    })
+    .fail(err => {
+        console.log(err)
+    })
+}
+
+function editTodoPost () {
+    const id = localStorage.getItem("current_id")
+    const title = $("#edit-title").val()
+    const description = $("#edit-description").val()
+    const status = $("#edit-status").val()
+    const due_date = $("#edit-due_date").val()
+
+    $.ajax({
+        method: 'PUT',
+        url: `${baseURL}/todos/${id}`,
+        headers: {
+            access_token: localStorage.getItem('access_token')
+        },
+        data: {
+            title,
+            description,
+            status,
+            due_date
+        }
+    })
     .done(respone => {
-        showEditForm(respone)
+        fetchTodos()
+        showMainPage()
     })
     .fail(err => {
         console.log(err)
