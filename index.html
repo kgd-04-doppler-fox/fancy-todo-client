@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+  <link rel="stylesheet" href="style.css">
+
+  <title>Fancy To-Do</title>
+</head>
+
+<body>
+
+  <section id="register">
+    <div class="container-fluid">
+      <div class="card bg-light">
+        <article class="card-body mx-auto" style="width: 50%;">
+          <h3 class="card-title mt-3 text-center">Fancy To-Do</h3>
+          <h4 class="card-title mt-3 text-center">Create Account</h4>
+          <p class="text-center">Get started with your free account</p>
+          <p>
+            <a href="" class="btn btn-block btn-danger" role="button"> <i class="fab fa-google"></i>   Sign up via
+              Google</a>
+          </p>
+          <p class="divider-text">
+            <span class="bg-light">OR</span>
+          </p>
+
+          <form id="register-user">
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+              </div>
+              <input id="email-reg" name="email" class="form-control" placeholder="Email address" type="email">
+            </div>
+
+
+            <div class="form-group input-group mb-5">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+              </div>
+              <input id="pass-reg" name="password" class="form-control" placeholder="Create password" type="password">
+            </div>
+
+
+            <div class="form-group mt-4">
+              <button type="submit" class="btn btn-primary btn-block"> Create Account </button>
+            </div>
+            <p class="text-center">Have an account? <a href="#login" id="login-from-form">Log In</a> </p>
+          </form>
+        </article>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <section id="login">
+    <div class="container-fluid">
+      <div class="card bg-light">
+        <article class="card-body mx-auto" style="width: 50%;">
+          <h3 class="card-title mt-3 mb-4 text-center">Fancy To-Do</h3>
+          <h4 class="card-title mt-3 mb-4 text-center">Login</h4>
+          <p>
+            <a href="" class="btn btn-block btn-danger"> <i class="fab fa-google"></i>   Login via Google</a>
+          </p>
+          <p class="divider-text">
+            <span class="bg-light">OR</span>
+          </p>
+
+          <form id="login-user">
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+              </div>
+              <input id="email-log" name="email" class="form-control" placeholder="Email address" type="email">
+            </div>
+
+
+            <div class="form-group input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+              </div>
+              <input id="password-log" class="form-control" name="password" placeholder="Enter password"
+                type="password">
+            </div>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block"> Login </button>
+            </div>
+
+            <a href="#register" id="reg-from-form" class="d-flex justify-content-center">Sign up for a new account</a>
+
+          </form>
+        </article>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+
+  <section id="show-all">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Todo</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="#create" id="createLink">Add a new Todo</a>
+          <form class="form-inline">
+            <button id="logout" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Sign out</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="d-flex container widgets mb-5 justify-content-between">
+        <div id="greeting">
+        </div>
+      </div>
+
+      <div class="row justify-content-center" id="cardContainer">
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="create">
+    <div class="container-fluid">
+      <div class="card bg-light">
+        <article class="card-body mx-auto" style="width: 50%;">
+          <div class="d-flex flex-column align-items-center">
+            <h3 class="card-title mt-3">Add a new To-Do</h3>
+            <p>Create a new To-Do</p>
+            <p id="showAll" class="btn btn-outline-info btn-sm" role="button" style="max-width: 30%;">Show all
+              Todo</p>
+          </div>
+
+          <form id="create-todo">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" name="title" class="form-control" id="title-create" placeholder="Learn React">
+            </div>
+
+            <div class="form-group">
+              <label for="desc">Description</label>
+              <input type="text" name="description" class="form-control" id="desc-create"
+                placeholder="A JavaScript library">
+            </div>
+
+            <div class="form-group">
+              <label for="due-date">Due date</label>
+              <input type="date" name="due_date" class="form-control" id="due-date">
+              <small id="mail" class="form-text text-danger">Date must be after today</small>
+            </div>
+
+            <div class="form-group mt-4">
+              <button type="submit" class="btn btn-primary btn-block"> Add To-Do </button>
+            </div>
+
+          </form>
+        </article>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <section id="update">
+    <div class="container-fluid">
+      <div class="card bg-light">
+        <article class="card-body mx-auto" style="width: 50%;">
+          <h3 class="card-title mt-3 text-center">Update a To-Do</h3>
+          <p class="text-center">Update a To-Do by Id</p>
+
+          <form id="update-todo">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input name="title" type="text" class="form-control" id="title" placeholder="Learn React">
+            </div>
+
+            <div class="form-group">
+              <label for="desc">Description</label>
+              <input name="description" type="text" class="form-control" id="desc" placeholder="A JavaScript library">
+            </div>
+
+            <div class="form-group">
+              <label>Status</label>
+              <div class="form-check">
+                <input class="form-check-input changeStatus" type="radio" name="status" value="true">
+                <label class="form-check-label" for="exampleRadios1">
+                  True
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input changeStatus" type="radio" name="status" value="false">
+                <label class="form-check-label" for="exampleRadios2">
+                  False
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="due_date">Due date</label>
+              <input type="date" class="form-control" id="due-date-edit" name="editDate">
+              <small id="mail" class="form-text text-danger">Date must be after today</small>
+            </div>
+
+            <div class="form-group mt-4">
+              <button type="submit" class="btn btn-primary btn-block"> Update To-Do </button>
+            </div>
+          </form>
+        </article>
+      </div>
+
+    </div>
+    </div>
+  </section>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>

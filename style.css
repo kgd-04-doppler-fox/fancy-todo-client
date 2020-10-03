@@ -1,0 +1,7 @@
+.container-fluid {
+  padding: 3% 10% 7%;
+}
+
+.fa-trash:hover {
+  color: red;
+}
