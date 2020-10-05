@@ -34,6 +34,7 @@ function changeStatus(id) {
 }
 
 function fetchDelete (id) {
+   
     let confirmation = confirm('Are you sure to delete this data?')
 
     if(confirmation){
@@ -134,13 +135,16 @@ function fetchTodo() {
                 <td>${todo.status}</td>
                 <td>
                 <div class="btn-group btn-group-toggle" data-toggle="buttons" style="text-align: center;">
-                <label class="btn btn-secondary active">
+                <label class="btn btn-success">
                   <input type="radio" name="options" id="change-status" autocomplete="off" onclick="changeStatus(${todo.id})"> compeleted
                 </label>
                 <label class="btn btn-secondary">
                   <input type="radio" name="options" id="edit-todo" autocomplete="off" onclick="editTodo(${todo.id})"> Edit
                 </label>
                 <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="addmember" autocomplete="off" onclick="getUsers()"> invite
+                </label>
+                <label class="btn btn-danger">
                   <input type="radio" name="options" id="delete-todo" autocomplete="off" onclick="fetchDelete(${todo.id})"> Delete
                 </label>
                 </div>
@@ -205,6 +209,38 @@ function clearLogin(){
     `)
 }
 
+function getUsers (){
+    $.ajax({
+        url : `${baseServer}/users`,
+        headers : {
+            access_token : localStorage.getItem('access_token')
+        }
+    })
+    .done(response => {
+        for(let i = 0; i < response.length; i++){
+            $("#members").append(`
+            <tr>
+            <td>${response[i].fullName}</td>
+            <td><button>add</button></td>
+            </tr>`)
+        }
+        
+    })
+    .fail(err => {
+        throw err
+    })
+}
+
+function addMember(id){
+    $.ajax(`${baseServer}/addMembers`,{
+        method: `POST`,
+        headers: {
+            access_token : localStorage.getItem(`access_token`)
+        }
+    })
+    
+}
+
 $(document).ready(function () {
     if (localStorage.getItem('access_token')){
         fetchTodo()
@@ -235,6 +271,7 @@ $(document).ready(function () {
 
 
     $('#signup').on('click', ()=> {
+        $('#signup').hide()
         $('#registration-page').show()
         $('#login-page').hide()
         $('#create-todo').hide()
@@ -272,7 +309,8 @@ $(document).ready(function () {
             fetchTodo()
         })
         .fail((err) => {
-            console.log(err)
+            $('#fail-login').css({"color" : "red"})
+            $('#form-login').trigger('reset')
         })
         .always(()=>{
             $('#login-page').trigger('reset')
@@ -295,7 +333,8 @@ $(document).ready(function () {
         localStorage.clear()
     })
 
-    $('#create-todo').on('click', () => {
+    $('#create-todo').on('click', (event) => {
+        event.preventDefault()
         $('#create-page').show()
         $('#create-todo').hide()
         $('#login-page').hide()
@@ -304,12 +343,14 @@ $(document).ready(function () {
         $('#header-todo-list').hide()
         $('#edit-page').hide()
         $('#registration-page').hide()
+        $('body').css({"background-image" : "url('./asset/create.jpg')"})
+
     })
 
     $('#submit_todo').on('click', (event) => {
-            event.preventDefault
+            event.preventDefault()
             $('#create-page').trigger('reset')
-            $.ajax(`${baseServer}/todos?lat=6.32275&lng=107.3376`, {
+            $.ajax(`${baseServer}/todos`, {
                 method : 'POST',
                 headers : {
                     access_token : localStorage.getItem('access_token')
@@ -333,13 +374,15 @@ $(document).ready(function () {
                 $('#create-page').hide()
                 $('#edit-page').hide()
                 $('#registration-page').hide()
+                $("#success-create").css({"color":"greeen"})
             })
             .fail(err => {
                 console.log(err)
             })
     })
     
-    $('#cancel_todo').on('click', () => {
+    $('#cancel_todo').on('click', (event) => {
+        event.preventDefault()
         fetchTodo()
         $('#todo-table').show()
         $('#logout-btn').show()
@@ -379,7 +422,8 @@ $(document).ready(function () {
         })
     })
 
-    $('#cancel-edit').on('click', () => {
+    $('#cancel-edit').on('click', (event) => {
+        event.preventDefault()
         fetchTodo()
         $('#todo-table').show()
         $('#logout-btn').show()
@@ -419,12 +463,14 @@ $(document).ready(function () {
             $('#registration-page').hide()
         })
         .fail (err => {
-            throw err
+            $('#register-form').trigger('reset')
+            $("#error-register").css({"color" : "red"})
         })
     })
 
     $('#cancel-register').on('click', (event) => {
         event.preventDefault()  
+        $('#signup').show()
         $("registration-page").trigger('reset')
         $('#login-page').show()
         $('#create-todo').hide()

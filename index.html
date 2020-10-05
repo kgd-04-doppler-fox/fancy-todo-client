@@ -5,33 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-signin-client_id" content="223469474641-gitlsd6isu203pktgncbv39k0b06126d.apps.googleusercontent.com">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Work+Sans:wght@300;500&display=swap" rel="stylesheet">
     <title>Fancy Todo</title>
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: thistle;">
-    <a class="navbar-brand" href="#">
-        <img src="https://www.vhv.rs/dpng/d/138-1380931_checklist-icon-triangle-hd-png-download.png" width="30" height="30" alt="">
-      </a>
-    <a class="navbar-brand" href="#">Fancy Todo</a>
+   
+    <a class="navbar-brand" href="#" style="font-family: 'Lobster', cursive; font-size:x-large;">Fancy Todo</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#" id="create-todo">Create Todo <span class="sr-only">(current)</span></a>
-        </li>
     </ul>
-      <a class="nav-link" href="#" id="signup" style="margin-left: 85%;">Signup</a>
-      <a class="nav-link" href="#" id="logout-btn" style="margin-left: 80%;">Logout</a>
+      <a class="btn btn-info" href="#" id="signup" style="margin-left: 91%;">Signup</a>
+      <a class="btn btn-danger" href="#" id="logout-btn" style="margin-left: 90%;">Logout</a>
     </div>
   </nav>
-<body style="background-image: url('./asset/login.jpg');" id="body">
 
-    <div id="login-page" style="width: 250px; margin-left: 200px; margin-top: 80px;">
-        <h1>Login</h1>
-        <form>
-            <label class="mt-3">Email</label>
+<body style="background-image: url('./asset/login.jpg'); font-family: 'Work Sans', sans-serif; font-size: small;" id="body">
+
+    <div id="login-page" style="width: 250px; margin-left: 200px; margin-top: 40px;" class="shadow p-3 mb-5 bg-white rounde">
+        <h1 style="font-family: 'Work Sans', sans-serif; font-weight: 300;">Login</h1>
+        <p id="fail-login" style="color: transparent;">Email/password is wrong</p>
+        <form id="form-login" >
+            <label>Email</label>
             <input type="text" class="form-control form-control-sm mt" placeholder="email" id="email">
             <label class="mt-3">Password</label>
             <input type="password" class="form-control form-control-sm" placeholder="password" id="password">
@@ -42,16 +40,18 @@
     </div>
 
     <div class="main page" >
-        <h1 id="header-todo-list" style="text-align: center; margin: 40px;">Your Todo list</h1>
-        <table class="table m-auto " style="width: 30px; background-color: white;" id="todo-table">
+        <h1 id="header-todo-list" style="text-align: center; font-family: 'Work Sans', sans-serif; font-weight: 300;">Your Todo List</h1>
+        <p id="success-create" style="color:transparent; text-align: center;">Success create new Todo</p>
+        <button class="btn btn-dark mb-3" id="create-todo" style="margin-left: 70%;">Add Todo</button>
+        <table class="table m-auto shadow p-3 mb-5 bg-white rounde" style="width: 30px; background-color: white;" id="todo-table">
 
         </table>
           
     </div>
 
-    <div id="create-page" >
-        <h1 style="text-align: center;">Make Todo</h1>
-        <form style="margin: auto; width: 300px;">
+    <div id="create-page" style="text-align:left;">
+        <h1 style="text-align: center; font-family: 'Work Sans', sans-serif; font-weight: 300;"">Make Todo</h1>
+        <form style="margin: auto; width: 300px;" class="shadow p-3 mb-5 bg-white rounde">
             <label for="title" class="mt-3">Title</label><br>
             <input type="text" id="title" class="form-control form-control-sm">
             <label for="description" class="mt-3">Description</label><br>
@@ -61,7 +61,7 @@
             <label for="location" class="mt-3">Location</label><br>
             <input type="text" id="location" class="form-control form-control-sm">
             <button id="submit_todo" class="btn btn-primary mt-3">Create</button>
-            <button id="cancel_todo" class="btn btn-primary mt-3">Cancel</button>
+            <button id="cancel_todo" class="btn btn-danger mt-3 ml-2">Cancel</button>
         </form>
     </div>
 
@@ -81,9 +81,10 @@
         </form>
     </div>
 
-    <div id="registration-page" style="margin-left: 200px; margin-top: 8%;">
-        <h1 >Registration</h1>
-        <form style="width: 300px;">
+    <div id="registration-page" style="margin-left: 200px; margin-top: 2%; width: 350px;" class="shadow p-3 mb-5 bg-white rounde" >
+        <h1 style="font-family: 'Work Sans', sans-serif; font-weight: 300;">Registration</h1>
+        <p id="error-register" style="color: transparent; margin-bottom: -2px;">Your email already used</p>
+        <form style="width: 300px;" id="register-form">
             <label class="mt-3">Name</label>
             <input type="text" class="form-control form-control-sm mt" placeholder="email" id="reg-name">
             <label class="mt-3">Email</label>
@@ -91,12 +92,16 @@
             <label class="mt-3">Password</label>
             <input type="password" class="form-control form-control-sm" placeholder="password" id="reg-password">
             <button class="btn btn-primary mt-3" id="submit-register">Register</button>
-            <button class="btn btn-primary mt-3" id="cancel-register">cancel</button>
+            <button class="btn btn-danger mt-3" id="cancel-register">cancel</button>
 
         </form>
     </div>
 
-    
+    <div id="add-member">
+        <table id="members">
+
+        </table>
+    </div>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
