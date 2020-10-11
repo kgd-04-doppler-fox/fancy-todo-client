@@ -167,7 +167,6 @@ function onSignIn(googleUser) {
         }
     })
     .done((result) => {
-        console.log(result)
         localStorage.setItem('access_token', result.access_token)
         fetchTodo()
         $('#todo-table').show()
@@ -330,6 +329,8 @@ $(document).ready(function () {
         $('#edit-page').hide()
         $('#signup').show()
         $('body').css({"background-image" : "url('./asset/login.jpg')"})
+        $('#fail-login').css({"color" : "transparent"})
+
         localStorage.clear()
     })
 
