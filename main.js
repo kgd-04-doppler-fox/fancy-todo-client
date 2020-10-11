@@ -125,27 +125,30 @@ function fetchTodo() {
           <th scope="col">Actions</th>
         </tr>
         </thead>`)
-        result.todos.forEach(todo => {
+        for(let i = 0; i < result.length; i++){
+            
+        }
+        result.forEach(todo => {
             $('#todo-table').append(`<tr>
-                <th scope="row">${todo.id}</th>
-                <td>${todo.title}</td>
-                <td>${todo.description}</td>
-                <td>${getDate(todo.due_date)}</td>
-                <td>${todo.location}</td>
-                <td>${todo.status}</td>
+                <th scope="row">${todo.Todo.id}</th>
+                <td>${todo.Todo.title}</td>
+                <td>${todo.Todo.description}</td>
+                <td>${getDate(todo.Todo.due_date)}</td>
+                <td>${todo.Todo.location}</td>
+                <td>${todo.Todo.status}</td>
                 <td>
                 <div class="btn-group btn-group-toggle" data-toggle="buttons" style="text-align: center;">
                 <label class="btn btn-success">
-                  <input type="radio" name="options" id="change-status" autocomplete="off" onclick="changeStatus(${todo.id})"> compeleted
+                  <input type="radio" name="options" id="change-status" autocomplete="off" onclick="changeStatus(${todo.Todo.id})"> compeleted
                 </label>
                 <label class="btn btn-secondary">
-                  <input type="radio" name="options" id="edit-todo" autocomplete="off" onclick="editTodo(${todo.id})"> Edit
+                  <input type="radio" name="options" id="edit-todo" autocomplete="off" onclick="editTodo(${todo.Todo.id})"> Edit
                 </label>
                 <label class="btn btn-secondary">
-                  <input type="radio" name="options" id="addmember" autocomplete="off" onclick="getUsers()"> invite
+                  <input type="radio" name="options" id="addmember" autocomplete="off" onclick="getUsers(${todo.Todo.id})"> invite
                 </label>
                 <label class="btn btn-danger">
-                  <input type="radio" name="options" id="delete-todo" autocomplete="off" onclick="fetchDelete(${todo.id})"> Delete
+                  <input type="radio" name="options" id="delete-todo" autocomplete="off" onclick="fetchDelete(${todo.Todo.id})"> Delete
                 </label>
                 </div>
                 </td>
@@ -208,19 +211,80 @@ function clearLogin(){
     `)
 }
 
-function getUsers (){
+function addMember(id){
+    $.ajax(`${baseServer}/todos/addMembers`,{
+        method: `POST`,
+        headers: {
+            access_token : localStorage.getItem(`access_token`)
+        },
+        data: {
+            userId: id,
+            todoId: localStorage.getItem('currentTodoId')
+        }
+    })
+    .done(response => {
+        $('#add-member').hide()
+        $('#todo-table').show()
+        $('#logout-btn').show()
+        $('#create-todo').hide()
+        $('#todo-header').show()
+        $('#header-todo-list').show()
+        $('#login-page').hide()
+        $('#create-page').hide()
+        $('#edit-page').hide()
+        $('body').css({"background-image" : "url('./asset/background.jpg')"})
+        $('#registration-page').hide()
+
+    })
+    .fail(err => {
+        console.log(err)
+    })
+    
+}
+
+function getUsers (id){
+    localStorage.setItem('currentTodoId', id)
+    $('#add-member').show()
+    $('#todo-table').hide()
+    $('#logout-btn').show()
+    $('#create-todo').hide()
+    $('#todo-header').hide()
+    $('#header-todo-list').hide()
+    $('#login-page').hide()
+    $('#create-page').hide()
+    $('#edit-page').hide()
+    $('body').css({"background-image" : "url('./asset/background.jpg')"})
+    $('#registration-page').hide()
     $.ajax({
-        url : `${baseServer}/users`,
+        url : `${baseServer}/users?todo=${id}`,
+        method: 'GET',
         headers : {
             access_token : localStorage.getItem('access_token')
         }
     })
     .done(response => {
-        for(let i = 0; i < response.length; i++){
+        const members = []
+
+        response[response.length-1].forEach(user => {
+            console.log(user.User.fullName)
+            members.push(user.User.fullName)
+        })
+
+        $("#project").prepend(`
+        <tr>
+        <td>${response[response.length-1][0].Todo.title}</td>
+        <td>${response[response.length-1][0].Todo.description}</td>
+        <td>${formatDate(response[response.length-1][0].Todo.due_date)}</td>
+        <td> ${members.join(', ')} </p>
+        </tr>
+        `)
+
+        for(let i = 0; i < response.length-2; i++){
             $("#members").append(`
             <tr>
             <td>${response[i].fullName}</td>
-            <td><button>add</button></td>
+            <td>${response[i].email}</td>
+            <td><button class="btn btn-primary btn-sm" onclick="addMember(${response[i].id})" >Add</button></td>
             </tr>`)
         }
         
@@ -230,15 +294,7 @@ function getUsers (){
     })
 }
 
-function addMember(id){
-    $.ajax(`${baseServer}/addMembers`,{
-        method: `POST`,
-        headers: {
-            access_token : localStorage.getItem(`access_token`)
-        }
-    })
-    
-}
+
 
 $(document).ready(function () {
     if (localStorage.getItem('access_token')){
@@ -253,6 +309,7 @@ $(document).ready(function () {
         $('#edit-page').hide()
         $('body').css({"background-image" : "url('./asset/background.jpg')"})
         $('#registration-page').hide()
+        $('#add-member').hide()
 
     }
     else{
@@ -265,7 +322,7 @@ $(document).ready(function () {
         $('#todo-header').hide()
         $('#edit-page').hide()
         $('#registration-page').hide()
-
+        $('#add-member').hide()
     }
 
 
@@ -305,6 +362,7 @@ $(document).ready(function () {
             $('#edit-page').hide()
             $('body').css({"background-image" : "url('./asset/background.jpg')"})
             $('#registration-page').hide()
+            $('#add-member').hide()
             fetchTodo()
         })
         .fail((err) => {
@@ -312,13 +370,13 @@ $(document).ready(function () {
             $('#form-login').trigger('reset')
         })
         .always(()=>{
-            $('#login-page').trigger('reset')
+            $('#form-page').trigger('reset')
         })
     })
 
     $('#logout-btn').on('click', () => {
         signOut()
-        $('#login-page').trigger('reset')
+        $('#form-login').trigger('reset')
         $('#registration-page').hide()
         $('#login-page').show()
         $('#todo-table').hide()

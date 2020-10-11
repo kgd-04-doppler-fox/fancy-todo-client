@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -97,10 +97,30 @@
         </form>
     </div>
 
-    <div id="add-member">
-        <table id="members">
-
-        </table>
+    <div id="add-member" style="text-align: center;" >
+        <h1>Add Member</h1>
+        <div id="projectName" >
+            <div style="margin: auto; text-align: left; display: flex; justify-content:space-evenly;">
+            <table id="project" border="1px" style="background-color: wheat;">
+                <thead style="background-color:white; text-align: center;">
+                    <th>Project Name</th>
+                    <th>Project Description</th>
+                    <th>Project Deadline</th>
+                    <th>Project Members</th>
+                </thead>
+            </table>
+            <table id="members" border="1px" style="width: 200px; text-align: center; background-color: wheat;" class="table table-bordered" >
+                <thead style="background-color: white;">
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                </thead>
+    
+            </table>
+            </div>
+        </div>
     </div>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
