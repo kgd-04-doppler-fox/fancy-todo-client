@@ -234,6 +234,8 @@ function addMember(id){
         $('#edit-page').hide()
         $('body').css({"background-image" : "url('./asset/background.jpg')"})
         $('#registration-page').hide()
+        $('#project').empty()
+        $('#members').empty()
 
     })
     .fail(err => {
@@ -279,7 +281,7 @@ function getUsers (id){
         </tr>
         `)
 
-        for(let i = 0; i < response.length-2; i++){
+        for(let i = 0; i < response.length-1; i++){
             $("#members").append(`
             <tr>
             <td>${response[i].fullName}</td>
@@ -299,6 +301,7 @@ function getUsers (id){
 $(document).ready(function () {
     if (localStorage.getItem('access_token')){
         fetchTodo()
+        getUsers()
         $('#todo-table').show()
         $('#logout-btn').show()
         $('#create-todo').show()
@@ -388,7 +391,8 @@ $(document).ready(function () {
         $('#signup').show()
         $('body').css({"background-image" : "url('./asset/login.jpg')"})
         $('#fail-login').css({"color" : "transparent"})
-
+        $('#project').empty()
+        $('#members').empty()
         localStorage.clear()
     })
 
