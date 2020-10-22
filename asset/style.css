@@ -56,6 +56,9 @@ span.buttonText {
     cursor: pointer;
     font-weight: bold;
 }
+
+
+/* Bg video too poor */
 .bg-video {
   position: absolute;
   top: 0;

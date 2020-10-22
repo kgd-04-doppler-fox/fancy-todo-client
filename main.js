@@ -4,7 +4,7 @@ check()
 
 function fetchTodos() { 
 
-    $.ajax(`${baseURL}/todos`, {
+    $.ajax(`https://warm-garden-64080.herokuapp.com/todos`, {
         method: 'GET',
         headers: {
             access_token: localStorage.getItem("access_token")
@@ -12,6 +12,7 @@ function fetchTodos() {
     })
         .done(response => {
             $("#todoList").empty()
+            $("#detailTodo").empty()
             response.todo.forEach(e => {
                 $("#todoList").append(`
                 <div class="card-header"><h4>${e.title}</h4></div>
@@ -90,7 +91,7 @@ function setDetail(id, title, description, status, due_date) {
 }
 
 function deleteTodo(id) {
-    $.ajax(`${baseURL}/todos/${id}`, {
+    $.ajax(`https://warm-garden-64080.herokuapp.com/todos/${id}`, {
         method: 'DELETE',
         headers: {
             access_token: localStorage.getItem("access_token")
@@ -107,7 +108,7 @@ function deleteTodo(id) {
 
 function updateActivity(id){ // better than nothing
     
-    $.ajax(`${baseURL}/todos/${id}`, {
+    $.ajax(`https://warm-garden-64080.herokuapp.com/todos/${id}`, {
         method: 'PATCH',
         data : {
             status: true 
@@ -132,7 +133,7 @@ function updateTodo (id){
     let status = $("#statusUpdate").val()
     let due_date = $("#dueDateUpdate").val()
  
-    $.ajax(`${baseURL}/todos/${id}`, {
+    $.ajax(`https://warm-garden-64080.herokuapp.com/todos/${id}`, {
         method: 'PUT',
         data : {
             title,
@@ -159,7 +160,7 @@ function updateTodo (id){
 function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token
     $.ajax({
-        url: `${baseURL}/users/googleSignIn`,
+        url: `https://warm-garden-64080.herokuapp.com/users/googleSignIn`,
         method: "POST",
         headers: {
             id_token: id_token
@@ -167,8 +168,8 @@ function onSignIn(googleUser) {
     })
         .done(response => {
             localStorage.setItem("access_token", response.token)
-            $('.outside').hide()
-            $('.inside').show()
+            check()
+            fetchTodos()
             $('#closeSignin').trigger('click')
         })
 
@@ -189,7 +190,7 @@ function check (){
 }
 
 function feature(){
-    $.ajax(`${baseURL}/features`, {
+    $.ajax(`https://warm-garden-64080.herokuapp.com/features`, {
         method: 'GET'
     })
     .done(response => {
@@ -212,7 +213,7 @@ $(document).ready(function () {
         const email = $("#emailSignin").val()
         const password = $("#passwordSignin").val()
         //disini request server
-        $.ajax(`${baseURL}/users`, {
+        $.ajax(`https://warm-garden-64080.herokuapp.com/users`, {
             method: 'POST',
             data: {
                 email,
@@ -221,7 +222,7 @@ $(document).ready(function () {
         })
             .done(response => {
                 localStorage.setItem("access_token", response.access_token)
-                check ()
+                check()
                 fetchTodos()
                 $('#closeSignin').trigger('click')
             })
@@ -250,7 +251,7 @@ $(document).ready(function () {
         let email = $("#emailSignup").val()
         let password = $("#passwordSignup").val()
         //request server
-        $.ajax(`${baseURL}/users/register`, {
+        $.ajax(`https://warm-garden-64080.herokuapp.com/users/register`, {
             method: 'POST',
             data: {
                 email,
@@ -278,7 +279,7 @@ $(document).ready(function () {
         let due_date = $("#dateCreate").val().trim() 
 
         //request server
-        $.ajax(`${baseURL}/todos`, {
+        $.ajax(`https://warm-garden-64080.herokuapp.com/todos`, {
             method: 'POST',
             data: {
                 title,
