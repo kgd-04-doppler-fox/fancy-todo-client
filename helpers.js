@@ -61,6 +61,25 @@ function login () {
     })
 }
 
+function register () {
+    const email = $("#email-reg").val()
+    const password = $("#password-reg").val()
+    // request server
+    $.ajax(`${baseURL}/register`, {
+        method: 'POST',
+        data: {
+            email,
+            password
+        }
+    })
+    .done((respone) => {
+        showLogin()
+    })
+    .fail((err) => {
+        console.log(err)
+    })
+}
+
 function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
 

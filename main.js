@@ -12,6 +12,11 @@ $(document).ready(function () {
         login()
     })
 
+    $("#register").on("submit", function (e) {
+        e.preventDefault()
+        register()
+    })
+
     $("#logout").on('click', () => {
         let auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
@@ -31,5 +36,13 @@ $(document).ready(function () {
 
     $("#form-edit").on('click', () => {
         editTodoPost()
+    })
+
+    $("#signup").on('click', () => {
+        showRegister()
+    })
+
+    $("#tologin").on('click', () => {
+        showLogin()
     })
 })
