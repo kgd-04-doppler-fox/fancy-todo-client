@@ -4,120 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-signin-client_id" content="602459969942-e8uikbks5f702fej52hel9utgr4ph5uk.apps.googleusercontent.com"> 
-                                                                    <!-- isinya adalah CLIENT_ID -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <!-- isinya adalah CLIENT_ID -->
     <title>FANCY TODO!</title>
 </head>
 <body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="d-flex justify-content-around" style="padding: 5vh;">
+            <button class="d-flex btn btn-danger" id="gotohompage"> Back </button>
+            <button class="d-flex btn btn-danger" id="logout"> Logout </button>
+        </div>
+        <h1 class="text-center" style="font-family:serif;padding: 5vh;"> Let's Make Some Fancy To-do List!</h1>
+    </nav>
     
-    <h1> Let's Make Some To-do List!</h1>
-    <br>
+    <!-- NEW LOGIN -->
+    <div class="text-center" style="margin-top: 10vh;">
+        <div class="container text-center">
+            <div class="text-center">
+                <div class="text-center">
+                    <div id="login-form">
+                        <form class="box text-center" id="login">
+                            <h1>Login</h1>
+                            <p class="text-muted"> Please enter your E-mail and password!</p> 
+                            <input name="email" id="email" type="text" placeholder="E-mail"> 
+                            <input type="password" name="password" id="password"  placeholder="Password"> 
+                            <button class="btn btn-warning" type="submit" value="Login"> Submit </button><br><br>
+                            <p>Don't have an Account?</p>
+                            <button class="btn btn-warning" id="register-login">Register Now!</button><br><br>
+                            <b>Or, Use another account: </b><br>
+                            <div class="g-signin2  text-center" data-onsuccess="onSignIn">
+                                <button class="text-center btn btn-warning" value="Google Sign In">
+                                    Google Sign In
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- LOGIN -->
+    <!-- NEW REGISTER -->
+    <div class="text-center" style="margin-top: 10vh;" id="register-form">
+        <div class="container text-center">
+            <div class="text-center">
+                <div class="text-center">
+                    <div id="login-form">
+                        <form class="box text-center" id="register">
+                            <h1 style="font-family:serif"> Register Here! </h1>
+                            <p class="text-muted"> Please enter your E-mail and password!</p> 
+                            <input name="email" id="register-email" type="text" placeholder="E-mail"> 
+                            <input type="password" name="password" id="register-password"  placeholder="Password"> 
+                            <button class="btn btn-warning" type="submit" value="Login"> Register </button><br><br>
+                            <p>Already have an Account?</p>
+                            <button class="btn btn-warning" id="login-button-from-register">Login Now!</button><br><br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW HOMEPAGE AFTERLOGIN -->
     <section>
-        <div id="login-form"> 
-            <!-- untuk nampilin yang .show() yang ada di .done -->
-            <form id="login"> 
-                <!-- yang buat submit -->
-                <h2>Login</h2>
-                <div>
-                    <label for="email">E-mail</label><br>
-                    <input type="email" name="email" id="email"><br><br>
+        <div class="text-center">
+            <div id="homepage">
+                <div class="card-deck">
+                    <form>
+                    <div class="row text-center" style="display: flex;">
+                            <div class="col-sm-6" style="padding: 5vh">
+                                <div class="border border-info rounded">
+                                    <div class="card-body">
+                                        <h5 class="card-text">“Sometimes our stop-doing list needs to be bigger than our to-do list.”</h5>
+                                        <p style="font-size: small;">― Patti Digh, Four-Word Self-Help: Simple Wisdom for Complex Lives</p> 
+                                        <button class="btn btn-primary" id="create-todo">Create your Todo Now!</button><br><br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" style="padding: 5vh">
+                                <div class="border border-info">
+                                    <div class="card-body">
+                                        <h5 class="card-text">“Each day I will accomplish one thing on my to do list.”</h5>
+                                        <p style="font-size: small;">― Lailah Gifty Akita</p> 
+                                        <button class="btn btn-primary" id="showAll-todo">My Todo</button><br><br>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-6" style="padding: 5vh">
+                                <div class="border border-info">
+                                    <div class="card-body">
+                                        <h5 class="card-text">“The checklist is one of the most high powered productivity tool ever discovered.”</h5>
+                                        <p style="font-size: small;">― Brian Tracy</p> 
+                                        <button class="btn btn-primary" id="find-todo">Find My Todo</button><br><br>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-sm-6" style="padding: 5vh">
+                                <div class="border border-info">
+                                    <div class="card-body">
+                                        <h5 class="card-text">“I am a goal setter and I set more goals everyday. I keep lists of goals in my office to stay on track.”</h5>
+                                        <p style="font-size: small;">― Kiana Tom</p> 
+                                        <button class="btn btn-primary" id="update-todo">Update My Todo</button><br><br>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </form>
                 </div>
-                <div>
-                    <label for="password">Password</label><br>
-                    <input type="password" name="password" id="password">
-                </div>
-                    <br> <br>
-                    <button type="submit"> Login </button><br><br>
-                    <p>Don't have an Account? <button id="register-login">Register Now!</button></p>
-                    <br>
-                    <b>Or, Use another account: </b><br><br>
-    
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            </form>
+            </div>
         </div>
     </section>
 
-    <!-- REGISTER -->
-    <section id="register-form">
-        <div>
-            <form id="register">
-                <h2>Register</h2>
-                <div>
-                    <label for="email">E-mail</label><br>
-                    <input type="email" name="email" id="register-email"><br><br>
-                </div>
-                <div>
-                    <label for="password">Password</label><br>
-                    <input type="password" name="password" id="register-password">
-                </div>
-                <br> <br>
-                <button type="submit"> Register </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- HOMEPAGE AFTERLOGIN -->
-    <section>
-        <div id="homepage">
-            <button id="logout"> Logout </button>
-            <form>
-                <h2>Fancy Todo Homepage</h2>
-                <div>
-                    <label for="create-todo">Create New Todo</label><br>
-                    <button id="create-todo">Create Now!</button><br><br>
-                </div>
-                <div>
-                    <label for="showAll-todo">Show All Todo</label><br>
-                    <button id="showAll-todo">My Todo</button><br><br>
-                </div>
-                <div>
-                    <label for="find-todo">Find Todo by Id</label><br>
-                    <button id="find-todo">Find My Todo</button><br><br>
-                </div>
-                <div>
-                    <label for="update-todo">Update New Todo</label><br>
-                    <button id="update-todo">Update My Todo</button><br><br>
-                </div>
-            </form>
-        </div>
-    </section>
 
     <!-- CREATE TODO -->
     <section>
-        <div id="create-todo-form">
+        <div id="create-todo-form" class="text-center">
             <form id="submit-new-todo">
                 <h2>Create Todo</h2>
-                <h3>Fill all the data to create To-do</h3>
+                <h4>Fill all the data to create To-do</h4>
                 <!-- title, description, status,snack, due_date -->
-                <div>
-                    <label for="title">To-do Title</label><br>
-                    <input type="text" id="title" ><br><br>
+                <div class="d-flex justify-content-around row text-center" style="padding: 10vh;">
+                    <div class="col-sm-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">To-do Title</span>
+                            </div>
+                            <input id="title" type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Description</span>
+                            </div>
+                            <input id="description" type="text" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                            </div>
+                            <select class="custom-select" id="status">
+                              <option selected value="incomplete">Incomplete</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Type of Snack</span>
+                            </div>
+                            <input id="snack" type="text" class="form-control" placeholder="Snack" aria-label="Snack" aria-describedby="basic-addon1">
+                            <br><br>
+                            <small>*) Insert snack/food name, e.g pizza, ayam, sate, etc</small>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Due Date</span>
+                            </div>
+                            <input id="due_date" type="date" class="form-control" placeholder="Pick a date" aria-label="date" aria-describedby="basic-addon1" min="new Date()">
+                            <br><br>
+                            <small>*) Minimum date to be inputted is today's date</small>
+                        </div>
+                        <button class="btn btn-info" type="submit">Create My Todo!</button>
+                    </div>
+                    <img src="./image/todo.png" style="opacity: 0.7;max-width: 50vh; max-height: 50vh;">
                 </div>
-                <div>
-                    <label for="description">Description</label><br>
-                    <input type="text" id="description" ><br><br>
-                </div>
-                <div>
-                    <label for="status">Status</label><br>
-                    <select name="status" id="status">
-                        <option value="incompleted" name="status" selected>incompleted</option>
-                    </select>
-                    <br><br>
-                </div>
-                <div>
-                    <label for="snack">Type of Snack</label><br>
-                    <input type="text" id="snack"><br>
-                    <small>*) Insert snack/food name, e.g pizza, ayam, sate, etc</small>
-                    <br><br>
-                </div>
-                <div>
-                    <label for="due_date">Due Date</label><br>
-                    <input type="date" id="due_date"><br>
-                    <small>*) Minimum date to be inputted is today's date</small>
-                </div>
-                <br>
-                <button type="submit">Create My Todo!</button>
             </form>
         </div>
     </section>
@@ -125,76 +175,29 @@
     <!-- Show All Todo -->
     <section>
         <div id="ShowAllTodo">
-            <h2>All My Todo</h2>
-            <table border="1">
-                <thead>
-                    <td> Id </td>
-                    <td> Title </td>
-                    <td> Description </td>
-                    <td> Status </td>
-                    <td> Snack </td>
-                    <td> Due Date </td>
-                </thead>
-                    <div id="list-todo">
-                    </div>
-                </table>
-                <input type="number" id="delete-data" name="delete-data" >
-                <button type="submit"> Delete </button>
-        </div>
-    </section>
-
-    <!-- Find Todo by Id -->
-    <section>
-        <div id="findTodo">
-            <form id="find-todo-by-id">
-                <h2>Find your To-do</h2>
-                <label for="id">To-do Id</label><br>
-                <input type="number" name="findId"><br><br>
-                <button type="submit">Find</button>
-            </form>
+            <h2 class="text-center" style="padding: 5vh;">All My Todo</h2>
+                <div id="list-todo" class="d-flex row d-flex justify-content-around" style="border-radius: 40%;">
+                        
+                </div>
         </div>
     </section>
 
     <!-- Update My To-do -->
-    <section>
-        <div id="update-todo-form">
+    <!-- <section> -->
+        <!-- <div id="update-todo-form" class="text-center">
             <form id="update-my-todo">
-                <h2>Update Todo</h2>
+                <h2>Create Todo</h2>
+                <h4>Fill all the data to create To-do</h4> -->
                 <!-- title, description, status,snack, due_date -->
-                <div>
-                    <label for="title">To-do Title</label><br>
-                    <input type="text" name="title"><br><br>
-                </div>
-                <div>
-                    <label for="description">Description</label><br>
-                    <input type="text" name="description" ><br><br>
-                </div>
-                <div>
-                    <label for="status">Status</label><br>
-                    <input type="radio" name="description" value="completed">Completed
-                    <br>
-                    <input type="radio" name="description" value="incompleted">Incompleted
-                    <br><br>
-                </div>
-                <div>
-                    <label for="snack">Type of Snack</label><br>
-                    <input type="text" name="snack"><br>
-                    <small>*) Insert snack/food name, e.g pizza, ayam, sate, etc</small>
-                    <br><br>
-                </div>
-                <div>
-                    <label for="due_date">Due Date</label><br>
-                    <input type="date" name="due_date" ><br>
-                    <small>*) Minimum date to be inputted is today's date</small>
-                </div>
-                <br>
-                <button type="submit">Create My Todo!</button>
-            </form>
-        </div>
-    </section>
+                <!-- <div id="fetchDataForUpdate" class="d-flex justify-content-around row text-center" style="padding: 10vh;"> -->
+                    
+                <!-- </div> -->
+            <!-- </form> -->
+        <!-- </div> -->
+    <!-- </section> -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./main.js"></script>
     <script src="./helpers.js"></script>
 

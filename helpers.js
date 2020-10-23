@@ -1,6 +1,7 @@
 const baseURL = "http://localhost:3000"
 
 function showLogin() {
+    $("#navbar").hide()
     $("#register-form").hide()
     $("#login-form").show()
     $("#homepage").hide()
@@ -11,6 +12,7 @@ function showLogin() {
 }
 
 function showRegister() {
+    $("#navbar").hide()
     $("#register-form").show()
     $("#login-form").hide()
     $("#homepage").hide()
@@ -20,7 +22,12 @@ function showRegister() {
     $("#update-todo-form").hide()
 }
 
+function showNavbar() {
+    $("#navbar").show()
+}
+
 function showHomepage() {
+    $("#navbar").show()
     $("#register-form").hide()
     $("#login-form").hide()
     $("#homepage").show()
@@ -31,7 +38,7 @@ function showHomepage() {
 }
 
 function showCreate() {
-    fetchCreate()
+    $("#navbar").show()
     $("#create-todo-form").show()
     $("#register-form").hide()
     $("#login-form").hide()
@@ -42,6 +49,7 @@ function showCreate() {
 }
 
 function showAllTodo() {
+    $("#navbar").show()
     $("#register-form").hide()
     $("#login-form").hide()
     $("#homepage").hide()
@@ -52,6 +60,7 @@ function showAllTodo() {
 }
 
 function showFindTodo() {
+    $("#navbar").show()
     $("#register-form").hide()
     $("#login-form").hide()
     $("#homepage").hide()
@@ -157,6 +166,63 @@ function updateStatus (id) {
     })
 }
 
+// function updateTodo () {
+//     $("#fetchDataForUpdate").empty()
+//     $.ajax({
+//         url : `${baseURL}/todos`,
+//         method : "GET",
+//         headers : {
+//             access_token : localStorage.getItem('access_token')
+//         }
+//     })
+//     .done(response => {
+//         for(let i = 0 ; i < response.length ; i++){
+//         $("#fetchDataForUpdate").append(`
+//         <div class="col-sm-6">
+//             <div class="input-group mb-3">
+//                 <div class="input-group-prepend">
+//                     <span class="input-group-text" id="basic-addon1">To-do Title</span>
+//                 </div>
+//                 <input id="title" type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1">
+//             </div>
+//             <div class="input-group mb-3">
+//                 <div class="input-group-prepend">
+//                 <span class="input-group-text" id="basic-addon1">Description</span>
+//                 </div>
+//                 <input id="description" type="text" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon1">
+//             </div>
+//             <div class="input-group mb-3">
+//                 <div class="input-group-prepend">
+//                     <label class="input-group-text" for="inputGroupSelect01">Status</label>
+//                 </div>
+//                 <select class="custom-select" id="status">
+//                     <option selected value="incomplete">Incomplete</option>
+//                 </select>
+//             </div>
+//             <div class="input-group mb-3">
+//                 <div class="input-group-prepend">
+//                 <span class="input-group-text" id="basic-addon1">Type of Snack</span>
+//                 </div>
+//                 <input id="snack" type="text" class="form-control" placeholder="Snack" aria-label="Snack" aria-describedby="basic-addon1">
+//                 <br><br>
+//                 <small>*) Insert snack/food name, e.g pizza, ayam, sate, etc</small>
+//             </div>
+//             <div class="input-group mb-3">
+//                 <div class="input-group-prepend">
+//                 <span class="input-group-text" id="basic-addon1">Due Date</span>
+//                 </div>
+//                 <input id="due_date" type="date" class="form-control" placeholder="Pick a date" aria-label="date" aria-describedby="basic-addon1" min="new Date()">
+//                 <br><br>
+//                 <small>*) Minimum date to be inputted is today's date</small>
+//             </div>
+//             <button class="btn btn-info" type="submit">Create My Todo!</button>
+//         </div>
+//         <img src="./image/todo.png" style="opacity: 0.7;max-width: 50vh; max-height: 50vh;">
+//         `)
+//         }
+//     })
+// }
+
 function fetchShowAll() {
     $("#list-todo").empty()
     $.ajax({
@@ -169,22 +235,27 @@ function fetchShowAll() {
     .done(response => {
         // console.log(response);
         for(let i = 0 ; i < response.length ; i++){
-            $("#list-todo").append(`
-                    <tbody>
-                        <tr>
-                        <td>${response[i].id}</td>
-                        <td>${response[i].title}</td>
-                        <td>${response[i].description}</td>
-                        <td>${response[i].status}</td>
-                        <td>${response[i].Snack}</td>
-                        <td>${response[i].due_date}</td>
-                        <td><button onclick="deleteTodo(${response[i].id})"> Delete </button></td>
-                        <td><button onclick="updateStatus(${response[i].id})"> Update Status </button></td>
-                        </tr>
-
-                        </tbody>
-        `)
-        }
+            let color = ['primary', 'secondary', 'success', 'warning','info', 'dark']
+            let randomColor = Math.floor(Math.random() * color.length)
+            var formatedDate = response[i].due_date.slice(0,10);
+                $("#list-todo").append(`
+                <div class="card text-white bg-${color[randomColor]} mb-3" style="max-width: 18rem;">
+                    <div class="card-header d-flex justify-content-between">
+                        <h3>${response[i].title}</h3>
+                        <h3>${response[i].id}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-title">Snack: ${response[i].Snack}</p>
+                        <p class="card-text">Description: ${response[i].description}</p>
+                        <p class="card-text">Status: ${response[i].status}</p>
+                        <p class="card-text">Due date: ${formatedDate}</p>
+                    <div class="d-flex justify-content-between">
+                        <button id="delete-data" class="btn btn-${color[randomColor+1]}" onclick="deleteTodo(${response[i].id})"> Delete </button>
+                        <button class="btn btn-${color[randomColor+1]}" onclick="updateStatus(${response[i].id})"> Update Status </button>
+                    </div>
+                </div>
+                `)
+            }
         // hasil fetch perlu di append ke dalamn sebuah div di html
     })
     .fail(err => {
@@ -211,8 +282,12 @@ function deleteTodo(id) {
 
 
 function onSignIn(googleUser) {
+        // var profile = googleUser.getBasicProfile();
+        // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        // console.log('Name: ' + profile.getName());
+        // console.log('Image URL: ' + profile.getImageUrl());
+        // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     var tokenGoogle = googleUser.getAuthResponse().id_token;
-    console.log(tokenGoogle);
     $.ajax({
         url : baseURL + '/googleSign',
         method : "POST",

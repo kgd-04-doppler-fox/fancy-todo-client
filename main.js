@@ -11,11 +11,20 @@ $(document).ready(function() {
         login()
     })
 
+    $("#gotohompage").on("click", function(e) {
+        e.preventDefault()
+        showHomepage()
+    })
+
     $("#register").on("submit", function(e) {
         e.preventDefault()
         register()
     })
-
+    
+    $("#login-button-from-register").on("click", function(e) {
+        e.preventDefault()
+        showLogin()
+    })
 
     $("#register-login").on("click", (e) => {
         e.preventDefault()
@@ -26,13 +35,6 @@ $(document).ready(function() {
         e.preventDefault()
         showCreate()
     })
-
-    // $("#delete-data").on("submit", (e) => {
-    //     e.preventDefault()
-    //     $.ajax({
-    //         url : `${baseURL}/delete/`
-    //     })  
-    // })
 
     $("#submit-new-todo").on("submit", (e) => {
         e.preventDefault()
@@ -68,13 +70,19 @@ $(document).ready(function() {
 
     $("#find-todo").on("click", (e) => {
         e.preventDefault()
-
         showFindTodo()
     })
 
     $("#update-todo").on("click", (e) => {
         e.preventDefault()
         $("#update-todo-form").show()
+        $("#login-form").hide()
+        $("#homepage").hide()
+    })
+
+    $("#delete-data").on("click", (e) => {
+        e.preventDefault()
+        showAllTodo()
         $("#login-form").hide()
         $("#homepage").hide()
     })
